@@ -44,7 +44,6 @@ button {
   cursor: pointer;
   background-color: #26bbe4;
   max-width: 80px;
-  justify: center;
   color: white;
   border: none;
   transition: 0.2s;
@@ -138,16 +137,20 @@ button:hover {
 }
 
 .edit-button {
-  color: #007bff;
+  color: #fff;
+  background-color: rgb(109, 174, 152);
 }
 
 .edit-button:hover {
-  color: #0056b3;
+  color: #736e6e;
+  background-color: rgb(45, 75, 65);
 }
 .delete-button {
-  color: #dc3545;
+  color: #fff;
+  background-color: rgb(109, 174, 152);;
 }
 
-.delete-btn:hover {
+.delete-button:hover {
   color: #a71d2a;
+  background-color: rgb(45, 75, 65);
 }
