@@ -7,7 +7,7 @@
   <title>Kanban Board: Backlog</title>
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" />
   <link rel="stylesheet" href="css/kanbanBacklog.css" />
-  <!-- Dropdown menu source: https://www.freecodecamp.org/news/html-drop-down-menu-how-to-add-a-drop-down-list-with-the-select-element/ -->
+  <!--Dropdown Menu source: https://www.freecodecamp.org/news/html-drop-down-menu-how-to-add-a-drop-down-list-with-the-select-element/-->
 </head>
 <body>
   <main>
@@ -25,28 +25,39 @@
       <button type="submit">Add Item</button>
     </form>
 
-    <div class="roadmap-columns">
+    <div class="kanban-columns">
       <div class="column">
         <h2>Planned</h2>
         <div class="card-container" id="plannedContainer">
           <div class="card">
             <p class="card-content"> Planned Item Tester</p>
+            <button class="edit-button">Edit</button>
+            <button class="delete-button">Delete</button>
           </div>
         </div>
-      </div>
+
 
       <div class="column">
         <h2>In Progress</h2>
         <div class="card-container" id="progressContainer">
+          <div class="card">
+            <p class="card-content"> IP Item Tester</p>
+            <button class="edit-button">Edit</button>
+            <button class="delete-button">Delete</button>
         </div>
       </div>
 
       <div class="column">
         <h2>Completed</h2>
         <div class="card-container" id="completedContainer">
+            <div class="card">
+            <p class="card-content"> Complete Item Tester</p>
+            <button class="edit-button">Edit</button>
+            <button class="delete-button">Delete</button>
         </div>
       </div>
     </div>
+          </div>
   </main>
 </body>
 </html>
