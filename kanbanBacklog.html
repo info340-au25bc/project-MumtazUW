@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Angel Hill" />
+  <title>Kanban Board: Backlog</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" />
+  <link rel="stylesheet" href="css/kanbanBacklog.css" />
+  <!-- Dropdown menu source: https://www.freecodecamp.org/news/html-drop-down-menu-how-to-add-a-drop-down-list-with-the-select-element/ -->
+</head>
+<body>
+  <main>
+    <h1>Product Roadmap</h1>
+    <form id="roadmapForm">
+      <input type="text" id="feature" placeholder="Feature name" required />
+      <input type="text" id="owner" placeholder="Owner" required />
+      <select id="status" required>
+        <option value="">Status</option>
+        <option>Planned</option>
+        <option>In Progress</option>
+        <option>Completed</option>
+      </select>
+      <input type="date" id="dueDate" required />
+      <button type="submit">Add Item</button>
+    </form>
+
+    <div class="roadmap-columns">
+      <div class="column">
+        <h2>Planned</h2>
+        <div class="card-container" id="plannedContainer">
+          <div class="card">
+            <p class="card-content"> Planned Item Tester</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <h2>In Progress</h2>
+        <div class="card-container" id="progressContainer">
+        </div>
+      </div>
+
+      <div class="column">
+        <h2>Completed</h2>
+        <div class="card-container" id="completedContainer">
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
