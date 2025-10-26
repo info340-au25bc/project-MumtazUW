@@ -1,0 +1,165 @@
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: #fafafa;
+  color: #333333;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  flex-wrap: wrap;
+}
+
+header h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.nav a {
+  margin-left: 1rem;
+  text-decoration: none;
+  color: #555555;
+  font-weight: 500;
+}
+
+.nav a.active {
+  color: #6a5acd;
+  border-bottom: 2px solid #6a5acd;
+}
+
+.footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #666666;
+  background: #ffffff;
+  border-top: 1px solid #eeeeee;
+}
+
+.notifications-container {
+  max-width: 700px;
+  margin: 1rem auto;
+  padding: 0 1rem;
+}
+
+.notification-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.mark-read {
+  background: #6a5acd;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.mark-read:hover {
+  background: #5849c1;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filters select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.notification-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.notification {
+  display: flex;
+  align-items: flex-start;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: background 0.2s;
+}
+
+.notification.unread {
+  background: #eef1ff;
+}
+
+.notification:hover {
+  background: #f5f5ff;
+}
+
+.content {
+  flex: 1;
+}
+
+.content p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.time {
+  display: block;
+  font-size: 0.8rem;
+  color: #777777;
+  margin-top: 0.25rem;
+}
+
+.notification-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-left: 1rem;
+}
+
+.archive-btn,
+.delete-btn {
+  background: none;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.archive-btn:hover {
+  background: #e0e0ff;
+  border-color: #6a5acd;
+  color: #6a5acd;
+}
+
+.delete-btn:hover {
+  background: #ffe0e0;
+  border-color: #d9534f;
+  color: #d9534f;
+}
+
+/* Responsive css, however i might either keep this or add more responsive css for each screen */
+@media (min-width: 768px) {
+  .notifications-container {
+    padding: 1rem 2rem;
+  }
+
+  .actions {
+    flex-direction: row;
+  }
+}

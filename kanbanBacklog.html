@@ -11,6 +11,14 @@
 <body>
   <main>
     <h1>Product Backlog</h1>
+<!--added this to allow for page switching, will fix header position soon-->
+  <header class="header">
+      <nav class="nav">
+        <a href="kanbanBacklog.html" class="active">Backlog</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="notification.html">Notification</a>
+      </nav>
+    </header>
     <form id="backlogForm">
       <input type="text" id="feature" placeholder="Feature name" required />
       <input type="text" id="owner" placeholder="Owner" required />

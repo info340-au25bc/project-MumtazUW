@@ -14,6 +14,31 @@ main {
   padding-bottom: 2rem;
 }
 
+/* added header and nav for page switching */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  flex-wrap: wrap;
+}
+
+.nav a {
+  margin-left: 1rem;
+  text-decoration: none;
+  color: #555555;
+  font-weight: 500;
+}
+
+.nav a.active {
+  color: #6a5acd;
+  border-bottom: 2px solid #6a5acd;
+}
+
+/**/
+
 h1 {
   text-align: center;
   margin: 1.5rem 0;

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Mumtaz" />
+  <meta name="description" content="Notifications view for PM Tool" />
+  <title>Notifications | PM Tool</title>
+  <link rel="stylesheet" href="css/notification.css" />
+</head>
+<body>
+  <header class="header">
+    <h1>Notifications</h1>
+    <nav class="nav">
+      <a href="kanbanBacklog.html">Backlog</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="notification.html" class="active">Notification</a>
+    </nav>
+  </header>
+
+  <main class="notifications-container">
+    <div class="notification-controls">
+      <button class="mark-read">Mark all as read</button>
+      <div class="filters">
+        <label for="sort">Sort:</label>
+        <select id="sort">
+          <option>Newest</option>
+          <option>Oldest</option>
+        </select>
+
+        <label for="filter">Filter:</label>
+        <select id="filter">
+          <option>All</option>
+          <option>Completed Tasks</option>
+          <option>In Progress</option>
+          <option>New Tasks</option>
+        </select>
+      </div>
+    </div>
+
+    <section class="notification-list">
+      <div class="notification unread">
+        <div class="icon"><!-- Will add SVG icons soon --></div>
+        <div class="content">
+          <p><strong>New task added:</strong> “Redesign login page”</p>
+          <span class="time">2h ago</span>
+        </div>
+        <div class="notification-buttons">
+          <button class="archive-btn">Archive</button>
+          <button class="delete-btn">Delete</button>
+        </div>
+      </div>
+
+      <div class="notification">
+        <div class="icon"><!-- Will add SVG icons soon --></div>
+        <div class="content">
+          <p><strong>Task completed:</strong> “API Integration”</p>
+          <span class="time">1d ago</span>
+        </div>
+        <div class="notification-buttons">
+          <button class="archive-btn">Archive</button>
+          <button class="delete-btn">Delete</button>
+        </div>
+      </div>
+
+      <div class="notification unread">
+        <div class="icon"><!-- Will add SVG icons soon --></div>
+        <div class="content">
+          <p><strong>Task in progress:</strong> “UI polish for dashboard”</p>
+          <span class="time">3d ago</span>
+        </div>
+        <div class="notification-buttons">
+          <button class="archive-btn">Archive</button>
+          <button class="delete-btn">Delete</button>
+        </div>
+      </div>
+
+      <div class="notification">
+        <div class="icon"><!-- Will add SVG icons soon --></div>
+        <div class="content">
+          <p><strong>Comment added:</strong> “Need to review milestones.”</p>
+          <span class="time">5d ago</span>
+        </div>
+        <div class="notification-buttons">
+          <button class="archive-btn">Archive</button>
+          <button class="delete-btn">Delete</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>INFO 340 Project - PM Tool Site</p>
+  </footer>
+</body>
+</html>
