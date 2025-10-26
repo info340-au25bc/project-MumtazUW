@@ -1,0 +1,171 @@
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f3f4f6;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+/* nav*/
+header {
+  position: fixed;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+header h1 {
+  color: #26bbe4;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+button {
+  background-color: #26bbe4;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+header button:hover {
+  background-color: #0b6780;
+}
+.profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+/*pages*/
+.container {
+  margin: 60px;
+  display: flex;
+  flex: 1;
+}
+
+/* sidebar layout */
+.sidebar {
+  width: 220px;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  padding-top: 15px;
+  height: 100%;
+  position: fixed;
+  left: 0;
+}
+
+.sidebar h2 {
+  font-size: 0.9em;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 10px 20px;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  margin-top: 10px;
+}
+
+.sidebar nav li {
+  margin-bottom: 5px;
+}
+
+.sidebar nav a {
+  display: block;
+  color: #222;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-left: 4px solid transparent;
+  transition: all 0.2s;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+  background-color: #e6f1fb;
+  border-left-color: #26bbe4;
+  color: #26bbe4;
+}
+
+
+main {
+  margin-left: 220px;
+  padding: 25px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  color: black;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+
+/* Flex box set-up*/
+main {
+  flex:1;
+}
+.flex-container {
+  display:flex;
+  height:100%;
+}
+
+.column{
+  padding: 1em;
+}
+.column-left{
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 240px;
+}
+.column-middle {
+  flex: 1;
+  background-color: #eee;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Card Setup */
+.card {
+  flex: 0 0 250px;
+  background-color: white;
+  margin: 0.5rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 1px 3px rgba(0,0,0,0.23);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+}
+.card-text {
+  padding: 0.5rem 1rem;
+}
