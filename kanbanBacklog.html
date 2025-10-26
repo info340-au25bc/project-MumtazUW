@@ -4,86 +4,106 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="Angel Hill" />
-  <title>Kanban Board: Backlog</title>
+  <title>Backlog</title>
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
   <link rel="stylesheet" href="css/kanbanBacklog.css" />
 </head>
+
 <body>
-  <main>
-    <h1>Product Backlog</h1>
-<!--added this to allow for page switching, will fix header position soon-->
-  <header class="header">
-      <nav class="nav">
-        <a href="kanbanBacklog.html" class="active">Backlog</a>
-        <a href="roadmap.html">Roadmap</a>
-        <a href="notification.html">Notification</a>
+  <!--NavBar-->
+  <header>
+    <h1>Luna Health Project Dashboard</h1>
+    <div class="profile">
+      <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" alt="Profile" />
+    </div>
+  </header>
+
+  <!-- Pages -->
+  <div class="container">
+    <!-- Sidebar-->
+    <div class="sidebar">
+      <h2>Navigation</h2>
+      <nav>
+        <ul>
+          <li><a href="projOverview.html" class="active">Project Overview</a></li>
+          <li><a href="roadmap.html">Roadmap</a></li>
+          <li><a href="kanbanBacklog.html">Tasks and Backlog</a></li>
+          <li><a href="#">Our Team</a></li>
+        </ul>
       </nav>
-    </header>
-    <form id="backlogForm">
-      <input type="text" id="feature" placeholder="Feature name" required />
-      <input type="text" id="owner" placeholder="Owner" required />
-      <input type="text" id="description" placeholder="Description" required />
-      <select id="status" required>
-        <option value="">Status</option>
-        <option>Planned</option>
-        <option>In Progress</option>
-        <option>Completed</option>
-      </select>
-      <select id="priority" required>
-        <option value="">Priority</option>
-        <option>Critical (P0)</option>
-        <option>High (P1)</option>
-        <option>Functional (P2)</option>
-        <option>Enhancement (P3)</option>
-      </select>
-      <input type="date" id="dueDate" required />
-      <button type="submit">Add Item</button>
-    </form>
-    <div class="kanban-container">
-<!-- Kanban Structured Cols-->
-    <div class="kanban-columns">
-      <!--Planned Column -->
-      <div class="column">
-        <h2>Planned</h2>
-        <div class="card-container" id="plannedContainer">
-          <div class="card">
-            <p class="card-content">Planned Item Tester</p>
-            <button class="edit-button">Edit</button>
-            <button class="delete-button">Delete</button>
-          </div>
-        </div>
-        <div class="card-container" id="plannedContainer">
-          <div class="card">
-            <p class="card-content">Planned Item Tester 2</p>
-            <button class="edit-button">Edit</button>
-            <button class="delete-button">Delete</button>
-          </div>
-        </div>
-      </div>
-      <!--In Progress Column -->
-      <div class="column">
-        <h2>In Progress</h2>
-        <div class="card-container" id="progressContainer">
-          <div class="card">
-            <p class="card-content">IP Item Tester</p>
-            <button class="edit-button">Edit</button>
-            <button class="delete-button">Delete</button>
-          </div>
-        </div>
-      </div>
-      <!--Completed Column -->
-      <div class="column">
-        <h2>Completed</h2>
-        <div class="card-container" id="completedContainer">
-          <div class="card">
-            <p class="card-content">Complete Item Tester</p>
-            <button class="edit-button">Edit</button>
-            <button class="delete-button">Delete</button>
-          </div>
-        </div>
-      </div>
     </div>
-    </div>
-  </main>
+
+    <!-- Main -->
+    <main>
+      <form id="backlogForm">
+        <input type="text" id="feature" placeholder="Feature name" required />
+        <input type="text" id="owner" placeholder="Owner" required />
+        <input type="text" id="description" placeholder="Description" required />
+        <select id="status" required>
+          <option value="">Status</option>
+          <option>Planned</option>
+          <option>In Progress</option>
+          <option>Completed</option>
+        </select>
+        <select id="priority" required>
+          <option value="">Priority</option>
+          <option>Critical (P0)</option>
+          <option>High (P1)</option>
+          <option>Functional (P2)</option>
+          <option>Enhancement (P3)</option>
+        </select>
+        <input type="date" id="dueDate" required />
+        <button type="submit">Add Item</button>
+      </form>
+      <!-- Kanban Columns -->
+      <div class="kanban-container">
+        <div class="kanban-columns">
+          <!-- Planned Column -->
+          <div class="column">
+            <h2>Planned</h2>
+            <div class="card-container" id="plannedContainer">
+              <div class="card">
+                <h3 class="card-header">Planned Item Tester</h3>
+                <p class="card-content">Planned Item Tester</p>
+                <button class="open-button">Open</button>
+              </div>
+            </div>
+            <div class="card-container">
+              <div class="card">
+                <h3 class="card-header">Planned Item Tester 2</h3>
+                <p class="card-content">Planned Item Tester 2</p>
+                <button class="open-button">Open</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- In Progress Column -->
+          <div class="column">
+            <h2>In Progress</h2>
+            <div class="card-container" id="progressContainer">
+              <div class="card">
+                <h3 class="card-header">In Progress Item Tester</h3>
+                <p class="card-content">IP Item Tester</p>
+                <button class="open-button">Open</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Completed Column -->
+          <div class="column">
+            <h2>Completed</h2>
+            <div class="card-container" id="completedContainer">
+              <div class="card">
+                <h3 class="card-header">Completed Item Tester 2</h3>
+                <p class="card-content">Complete Item Tester</p>
+                <button class="open-button">Open</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
 </body>
 </html>
