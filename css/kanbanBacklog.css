@@ -26,6 +26,23 @@ header {
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+
+header i {
+  font-size: 24px;
+  color: #0b6780; 
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+header i:hover {
+  transform: scale(1.1);
+  color: #26bbe4; 
+}
+
 header h1 {
   color: #26bbe4;
   font-size: 1.3em;
@@ -41,7 +58,7 @@ header h1 {
 
 /* pages */
 .container {
-  margin-top: 60px; /* make room for fixed header */
+  margin-top: 60px; /* makes room for fixed header */
   display: flex;
   flex: 1;
 }
@@ -55,7 +72,7 @@ header h1 {
   height: 100%;
   position: fixed;
   left: 0;
-  top: 60px; /* below the header */
+  top: 60px;
 }
 
 .sidebar h2 {
