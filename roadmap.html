@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Mumtaz" />
+  <meta name="description" content="Project management roadmap view" />
+  <title>Roadmap | PM Site</title>
+  <link rel="stylesheet" href="css/roadmap.css" />
+</head>
+<body>
+  <header class="header">
+    <h1>Product Roadmap</h1>
+    <nav class="nav">
+      <a href="kanbanBacklog.html">Backlog</a>
+      <a href="roadmap.html" class="active">Roadmap</a>
+      <a href="notification.html">Notification</a>
+    </nav>
+  </header>
+
+  <main class="roadmap-container">
+    <section class="legend">
+      <span class="legend-item planned"></span> Planned
+      <span class="legend-item progress"></span> In Progress
+      <span class="legend-item done"></span> Complete
+    </section>
+
+    <section class="timeline">
+      <div class="timeline-header">
+        <div class="phase-title"></div>
+        <div class="timeline-months">
+          <span>Oct</span><span>Nov</span><span>Dec</span>
+          <span>Jan</span><span>Feb</span><span>Mar</span>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-title">Foundation</div>
+        <div class="phase-bar">
+          <div class="bar done" style="width:30%"></div>
+          <span class="bar-label">30%</span>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-title">Core Features</div>
+        <div class="phase-bar">
+          <div class="bar progress" style="width:60%"></div>
+          <span class="bar-label">60%</span>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-title">Collaboration</div>
+        <div class="phase-bar">
+          <div class="bar planned" style="width:40%"></div>
+          <span class="bar-label">40%</span>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-title">Integrations</div>
+        <div class="phase-bar">
+          <div class="bar planned" style="width:30%"></div>
+          <span class="bar-label">30%</span>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-title">Analytics & Deployment</div>
+        <div class="phase-bar">
+          <div class="bar planned" style="width:50%"></div>
+          <span class="bar-label">50%</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>INFO 340 Project - PM Tool Site</p>
+  </footer>
+</body>
+</html>
