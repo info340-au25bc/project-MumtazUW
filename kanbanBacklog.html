@@ -13,15 +13,21 @@
 
 <body>
   <!--NavBar-->
-  <header>
-    <div class="header-left">
-      <i class="bi bi-house-fill"></i>
-      <h1>Project Backlog</h1>
-    </div>
-    <div class="profile">
-      <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" alt="Profile" />
-    </div>
-  </header>
+<header>
+  <div class="header-left">
+    <!-- hamburger button-->
+    <button class="hamburger" aria-label="Open menu">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <h1>Project Backlog</h1>
+  </div>
+  <div class="profile">
+    <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" alt="Profile" />
+  </div>
+</header>
+
+
 
   <!-- Pages -->
   <div class="container">
@@ -41,26 +47,27 @@
     <!-- Main -->
     <main>
       <form id="backlogForm">
-        <input type="text" id="feature" placeholder="Feature name" required />
-        <input type="text" id="owner" placeholder="Owner" required />
-        <input type="text" id="description" placeholder="Description" required />
-        <select id="status" required>
-          <option value="">Status</option>
-          <option>Planned</option>
-          <option>In Progress</option>
-          <option>Completed</option>
-        </select>
-        <select id="priority" required>
-          <option value="">Priority</option>
-          <option>Critical (P0)</option>
-          <option>High (P1)</option>
-          <option>Functional (P2)</option>
-          <option>Enhancement (P3)</option>
-        </select>
-        <input type="date" id="dueDate" required />
-        <button type="submit">Add Item</button>
+        <div class="form-row">
+          <input type="text" id="feature" placeholder="Feature name" required />
+          <input type="text" id="owner" placeholder="Owner" required />
+          <input type="text" id="description" placeholder="Description" required />
+          <select id="status" required>
+            <option value="">Status</option>
+            <option>Planned</option>
+            <option>In Progress</option>
+            <option>Completed</option>
+          </select>
+          <select id="priority" required>
+            <option value="">Priority</option>
+            <option>Critical (P0)</option>
+            <option>High (P1)</option>
+            <option>Functional (P2)</option>
+            <option>Enhancement (P3)</option>
+          </select>
+          <input type="date" id="dueDate" required />
+          <button type="submit">Add Item</button>
+        </div>
       </form>
-
       <!-- Filters Row -->
 <div class="filters-bar">
   <div class="filter-group">
@@ -78,7 +85,7 @@
       <label for="filterAssignee">Assignee:</label>
       <select id="filterAssignee">
         <option value="">All</option>
-        <option>Ava</option>
+        <option>Mumtaz</option>
         <option>Angel</option>
         <option>Team</option>
       </select>
@@ -103,14 +110,12 @@
               <div class="card">
                 <h3 class="card-header">Planned Item Tester</h3>
                 <p class="card-content">Planned Item Tester</p>
-                <button class="open-button">Open</button>
               </div>
             </div>
             <div class="card-container">
               <div class="card">
                 <h3 class="card-header">Planned Item Tester 2</h3>
                 <p class="card-content">Planned Item Tester 2</p>
-                <button class="open-button">Open</button>
               </div>
             </div>
           </div>
@@ -122,7 +127,6 @@
               <div class="card">
                 <h3 class="card-header">In Progress Item Tester</h3>
                 <p class="card-content">IP Item Tester</p>
-                <button class="open-button">Open</button>
               </div>
             </div>
           </div>
@@ -134,7 +138,6 @@
               <div class="card">
                 <h3 class="card-header">Completed Item Tester 2</h3>
                 <p class="card-content">Complete Item Tester</p>
-                <button class="open-button">Open</button>
               </div>
             </div>
           </div>
