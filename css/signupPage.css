@@ -8,9 +8,11 @@
 body {
   background: #f8fafc;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  padding: 1rem;
 }
 
 .auth-container {
@@ -21,7 +23,7 @@ body {
 }
 
 .auth-box {
-  background: #fff;
+  background: #ffffff;
   padding: 3rem 2.5rem;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
@@ -37,20 +39,30 @@ body {
 
 .auth-box p {
   margin-bottom: 2rem;
-  color: #555;
+  color: #555555;
+}
+
+.auth-box label {
+  display: block;
+  text-align: left;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+  color: #333333;
+  font-size: 0.95rem;
 }
 
 .auth-box form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: .5rem;
 }
 
 .auth-box input {
   padding: 0.8rem 1rem;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   font-size: 1rem;
+  width: 100%;
 }
 
 .auth-box input:focus {
@@ -64,7 +76,7 @@ body {
   border-radius: 8px;
   border: none;
   background-color: #26bbe4;
-  color: #fff;
+  color: #ffffff;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
@@ -76,7 +88,7 @@ body {
 
 .auth-footer {
   margin-top: 1.5rem;
-  color: #555;
+  color: #555555;
 }
 
 .auth-footer a {
@@ -87,4 +99,46 @@ body {
 
 .auth-footer a:hover {
   color: #0b6780;
+}
+
+footer {
+  text-align: center;
+  color: #555555;
+  padding: 1rem;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  body {
+    padding: 2rem;
+  }
+
+  .auth-box {
+    padding: 3.5rem 3rem;
+    max-width: 450px;
+  }
+
+  .auth-box h1 {
+    font-size: 2rem;
+  }
+
+  .auth-box p {
+    font-size: 1.1rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .auth-box {
+    padding: 4rem 3.5rem;
+    max-width: 500px;
+  }
+
+  .auth-box h1 {
+    font-size: 2.2rem;
+  }
+
+  .auth-box p {
+    font-size: 1.15rem;
+  }
 }
