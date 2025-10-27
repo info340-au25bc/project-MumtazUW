@@ -60,6 +60,39 @@
         <input type="date" id="dueDate" required />
         <button type="submit">Add Item</button>
       </form>
+
+      <!-- Filters Row -->
+<div class="filters-bar">
+  <div class="filter-group">
+    <label for="filterPriority">Priority:</label>
+    <select id="filterPriority">
+      <option value="">All</option>
+      <option>Critical (P0)</option>
+      <option>High (P1)</option>
+      <option>Functional (P2)</option>
+      <option>Enhancement (P3)</option>
+    </select>
+  </div>
+
+    <div class="filter-group">
+      <label for="filterAssignee">Assignee:</label>
+      <select id="filterAssignee">
+        <option value="">All</option>
+        <option>Ava</option>
+        <option>Angel</option>
+        <option>Team</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="filterRecency">Recency:</label>
+      <select id="filterRecency">
+        <option value="">All</option>
+        <option>Newest First</option>
+        <option>Oldest First</option>
+      </select>
+    </div>
+  </div>
       <!-- Kanban Columns -->
       <div class="kanban-container">
         <div class="kanban-columns">

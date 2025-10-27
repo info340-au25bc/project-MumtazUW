@@ -24,6 +24,17 @@ header {
   padding: 0 20px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
+/* Home Icon*/
+header i {
+  font-size: 24px;
+  color: #26bbe4; 
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+header i:hover {
+  transform: scale(1.1);
+  color: #0b6780; 
+}
 
 header h1 {
   color: #26bbe4;
