@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">  
-    <title>Projects Page</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">    
-    <!-- normalize.css for cross-browser stuff -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
-    <link rel="stylesheet" href="css/projectsPage.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects Page</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/projectsPage.css">
 </head>
-  <!--nav-->
+
+<body>
   <header>
     <div class="header-left">
-      <i class="bi bi-house-fill"></i>
-      <h1>Luna Health Projects Page</h1>
+      <button class="hamburger" aria-label="Open menu">
+        <i class="bi bi-list"></i>
+      </button>
+      <h1>Luna Health Projects</h1>
     </div>
+
     <div class="profile">
       <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" alt="Profile" />
     </div>
   </header>
 
-  <!-- pages -->
   <div class="container">
-    <!-- sidebar-->
-    <div class="sidebar">
+    <aside class="sidebar">
       <h2>Navigation</h2>
       <nav>
         <ul>
@@ -32,44 +35,48 @@
           <li><a href="#">Our Team</a></li>
         </ul>
       </nav>
-    </div>
-  <body>
+    </aside>
+
     <main>
-        <div class="flex-container">
-            <section class="column column-left">
-                <h2>Cards</h2>
-                <button>Add Project</button>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, ullam! Provident at accusantium, explicabo odio laborum ducimus earum amet repudiandae commodi quod distinctio, iste reprehenderit nihil ullam dolorum illo fugit.</p>
-            </section>
-            <section class="column column-middle">
-            <div class="card-container">
-                <div class="card">
-                  <h2> Project 1</h2> 
-                  <img src="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3" alt="abstract project art">
-                  <p class="card-text">Doloremque commodi unde eaque! Et natus dolorum corrupti ut numquam.</p>
-                </div>
+      <section class="projects-header-row">
+        <h2>Your Projects</h2>
+        <button class="add-project-btn">Add Project</button>
+      </section>
 
-                <div class="card">
-                  <h2> Project 2</h2> 
-                  <img src="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3" alt="abstract project art">
-                  <p class="card-text">Odio praesentium cum nemo nesciunt architecto, quam voluptate porro inventore.</p>
-                </div>
-
-                <div class="card">
-                  <h2> Project 3</h2>                  
-                  <img src="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3" alt="abstract project art">
-                  <p class="card-text">Dignissimos consequuntur maxime harum debitis ratione, culpa iure pariatur quaerat?</p>
-                </div>
-
-                <div class="card">
-                  <h2> Project 4</h2>
-                  <img src="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3" alt="abstract project art">
-                  <p class="card-text">Odit id earum commodi tempora voluptatum mollitia dolorum, perspiciatis nulla!</p>
-                </div>
-
-            </div>
-            </section>
+      <section class="card-container">
+        <div class="card">
+          <img src="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3" alt="abstract project art">
+          <div class="card-text">
+            <h3>Project 1</h3>
+            <p>Doloremque commodi unde eaque! Et natus dolorum corrupti ut numquam.</p>
+          </div>
         </div>
+
+        <div class="card">
+          <img src="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3" alt="abstract project art">
+          <div class="card-text">
+            <h3>Project 2</h3>
+            <p>Odio praesentium cum nemo nesciunt architecto, quam voluptate porro inventore.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3" alt="abstract project art">
+          <div class="card-text">
+            <h3>Project 3</h3>
+            <p>Dignissimos consequuntur maxime harum debitis ratione, culpa iure pariatur quaerat?</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3" alt="abstract project art">
+          <div class="card-text">
+            <h3>Project 4</h3>
+            <p>Odit id earum commodi tempora voluptatum mollitia dolorum, perspiciatis nulla!</p>
+          </div>
+        </div>
+      </section>
     </main>
-  </body>
+  </div>
+</body>
 </html>
