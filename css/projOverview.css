@@ -24,7 +24,14 @@ header {
   padding: 0 20px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
-/* Home Icon*/
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Home */
 header i {
   font-size: 24px;
   color: #26bbe4; 
@@ -38,7 +45,7 @@ header i:hover {
 
 header h1 {
   color: #26bbe4;
-  font-size: 1.3em;
+  font-size: 1em;
   font-weight: 600;
 }
 
@@ -55,11 +62,37 @@ header button {
 header button:hover {
   background-color: #0b6780;
 }
+
 .profile img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   border: 2px solid #fff;
+}
+
+/* hamburger menu */
+.hamburger {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+}
+
+.hamburger i {
+  font-size: 28px;
+  color: #26bbe4;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.hamburger:hover i {
+  transform: scale(1.1);
+  color: #0b6780;
 }
 
 /*pages*/
@@ -69,15 +102,17 @@ header button:hover {
   flex: 1;
 }
 
-/* sidebar layout */
+/* nav layout */
 .sidebar {
   width: 220px;
   background-color: #fff;
   border-right: 1px solid #ddd;
   padding-top: 15px;
-  height: 100%;
   position: fixed;
   left: 0;
+  top: 60px;
+  bottom: 0;
+  display: none;
 }
 
 .sidebar h2 {
@@ -113,10 +148,9 @@ header button:hover {
   color: #26bbe4;
 }
 
-
 main {
-  margin-left: 220px;
-  padding: 25px;
+  margin-left: 0;
+  padding: 15px;
   overflow-y: auto;
   flex: 1;
 }
@@ -144,23 +178,14 @@ main {
 /* Metric */
 .metrics {
   display: flex;
-  margin-top: 15px;
-  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .metric {
-  background-color: #f9fafb;
-  border-radius: 6px;
-  padding: 10px 15px;
-  text-align: center;
   flex: 1;
-  margin-right: 20px;
+  min-width: 180px;
 }
-
-.metric:last-child {
-  margin-right: 0;
-}
-
 .metric h3 {
   color: #26bbe4;
   font-size: 1.3em;
@@ -198,18 +223,21 @@ footer {
   background-color: #f3f4f6;
 }
 
-
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .sidebar {
-    display: none;
+    display: block;
   }
 
   main {
-    margin-left: 0;
-    padding: 15px;
+    margin-left: 220px;
+    padding: 25px;
   }
 
   header h1 {
-    font-size: 1em;
+    font-size: 1.3em;
+  }
+
+  .hamburger {
+    display: none;
   }
 }
