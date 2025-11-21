@@ -13,9 +13,21 @@ body {
   flex-direction: column;
 }
 
-header {
+/* ---- BacklogPage layout ---- */
+
+.BacklogPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f3f4f6;
+}
+
+/* Header pinned to top inside BacklogPage */
+.backlog-header {
   position: fixed;
-  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
   height: 60px;
@@ -24,52 +36,28 @@ header {
   justify-content: space-between;
   padding: 0 20px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  z-index: 10;
 }
 
-.header-left {
+.backlog-header .header-left {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-header i {
+.backlog-header i {
   font-size: 24px;
   color: #26bbe4;
   transition: transform 0.2s ease, color 0.2s ease;
   cursor: pointer;
 }
 
-header i:hover {
+.backlog-header i:hover {
   transform: scale(1.1);
   color: #0b6780;
 }
 
-header h1 {
-  color: #26bbe4;
-  font-size: 1.3em;
-  font-weight: 600;
-}
-
-header {
-  position: fixed;
-  width: 100%;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-header h1 {
+.backlog-header h1 {
   color: #26bbe4;
   font-size: 1.3em;
   font-weight: 600;
@@ -78,7 +66,7 @@ header h1 {
   align-items: center;
 }
 
-.hamburger {
+.backlog-header .hamburger {
   background: none;
   border: none;
   padding: 8px;
@@ -91,31 +79,36 @@ header h1 {
   border-radius: 6px;
 }
 
-.hamburger i {
+.backlog-header .hamburger i {
   font-size: 28px;
   color: #26bbe4;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.hamburger:hover i {
+.backlog-header .hamburger:hover i {
   transform: scale(1.1);
   color: #0b6780;
 }
-.profile img {
+
+.backlog-header .profile img,
+.BacklogPage .profile img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   border: 2px solid #fff;
 }
 
-.container {
-  margin-top: 60px;
+/* Push content down below fixed header */
+.backlog-container {
+  margin-top: 80px; /* 60px header + some space */
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.sidebar {
+/* Sidebar */
+
+.BacklogPage .sidebar {
   display: none;
   width: 220px;
   background-color: #fff;
@@ -124,10 +117,10 @@ header h1 {
   height: 100%;
   position: fixed;
   left: 0;
-  top: 60px;
+  top: 60px; /* under the header */
 }
 
-.sidebar h2 {
+.BacklogPage .sidebar h2 {
   font-size: 0.9em;
   color: #555;
   text-transform: uppercase;
@@ -135,16 +128,16 @@ header h1 {
   margin: 10px 20px;
 }
 
-.sidebar nav ul {
+.BacklogPage .sidebar nav ul {
   list-style: none;
   margin-top: 10px;
 }
 
-.sidebar nav li {
+.BacklogPage .sidebar nav li {
   margin-bottom: 5px;
 }
 
-.sidebar nav a {
+.BacklogPage .sidebar nav a {
   display: block;
   color: #222;
   text-decoration: none;
@@ -153,19 +146,24 @@ header h1 {
   transition: all 0.2s;
 }
 
-.sidebar nav a:hover,
-.sidebar nav a.active {
+.BacklogPage .sidebar nav a:hover,
+.BacklogPage .sidebar nav a.active {
   background-color: #e6f1fb;
   border-left-color: #26bbe4;
   color: #26bbe4;
 }
 
-main {
+/* Main content */
+
+.backlog-main {
   padding: 25px;
   flex: 1;
+  overflow: visible;
 }
 
-form {
+/* Form */
+
+.backlog-main form {
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -175,28 +173,30 @@ form {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.form-row {
+.backlog-main .form-row {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   width: 100%;
 }
 
-.form-row input,
-.form-row select,
-.form-row button {
+.backlog-main .form-row input,
+.backlog-main .form-row select,
+.backlog-main .form-row button {
   width: 100%;
   box-sizing: border-box;
 }
 
-input, select {
+.backlog-main input,
+.backlog-main select {
   padding: 0.6rem 0.8rem;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
+  margin: 0.25rem 0;
 }
 
-button {
+.backlog-main button {
   background-color: #26bbe4;
   color: white;
   border: none;
@@ -206,19 +206,14 @@ button {
   margin-left: 0;
   cursor: pointer;
 }
-button:hover {
+
+.backlog-main button:hover {
   background-color: #0b6780;
 }
-input, select {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  margin: 0.25rem 0; 
-}
 
+/* Filters */
 
-.filters-bar {
+.BacklogPage .filters-bar {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -230,19 +225,19 @@ input, select {
   margin-bottom: 1.5rem;
 }
 
-.filter-group {
+.BacklogPage .filter-group {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.filter-group label {
+.BacklogPage .filter-group label {
   font-weight: 600;
   color: #333;
   font-size: 0.9rem;
 }
 
-.filters-bar select {
+.BacklogPage .filters-bar select {
   padding: 0.5rem 0.75rem;
   font-size: 0.9rem;
   border: 1px solid #e5dfdf;
@@ -251,32 +246,34 @@ input, select {
   transition: border 0.2s, background 0.2s;
 }
 
-.filters-bar select:hover {
+.BacklogPage .filters-bar select:hover {
   background-color: #f0f8ff;
   border-color: #26bbe4;
 }
 
-.kanban-container {
+/* Kanban */
+
+.BacklogPage .kanban-container {
   background-color: #fff;
   box-shadow: 0 3px 6px rgba(0,0,0,0.1);
   padding: 1rem;
   border-radius: 10px;
 }
 
-.kanban-columns {
+.BacklogPage .kanban-columns {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.column {
+.BacklogPage .column {
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   padding: 1rem;
 }
 
-.column h2 {
+.BacklogPage .column h2 {
   text-align: center;
   background-color: #26bbe4;
   color: white;
@@ -285,14 +282,14 @@ input, select {
   margin-top: 0;
 }
 
-.card-container {
+.BacklogPage .card-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 0.5rem;
 }
 
-.card {
+.BacklogPage .card {
   width: 100%;
   background-color: white;
   margin: 0.5rem 0;
@@ -304,29 +301,31 @@ input, select {
   cursor: pointer;
 }
 
-.card-header {
+.BacklogPage .card-header {
   color: #383737;
   padding: 10px;
 }
 
-.card-content {
+.BacklogPage .card-content {
   padding: 1rem;
   color: black;
 }
 
-.card:hover {
-  background-color: #e0e0e0; 
+.BacklogPage .card:hover {
+  background-color: #e0e0e0;
   transform: translate3d(0px, -1px, 0px);/* lifts card to make it feel interactive!*/
 }
 
+/* ---- Responsive tweaks ---- */
+
 @media (min-width: 598px) {
-  .filters-bar {
+  .BacklogPage .filters-bar {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
   }
 
-  form {
+  .backlog-main form {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
@@ -334,70 +333,65 @@ input, select {
 }
 
 @media (min-width: 768px) {
-  .sidebar {
+  .BacklogPage .sidebar {
     display: block;
   }
 
-  main {
+  .backlog-main {
     margin-left: 220px;
   }
 
-  header i.bi-house-fill {
-    display: none;
-  }
-
-  .kanban-columns {
+  .BacklogPage .kanban-columns {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
   }
-
 }
 
 @media (min-width: 900px) {
-  header h1 {
+  .backlog-header h1 {
     font-size: 1.5em;
   }
 
-  .form-row {
+  .BacklogPage .form-row {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    flex-wrap: nowrap; 
+    flex-wrap: nowrap;
     gap: 0.5rem;
   }
 
-  .form-row input,
-  .form-row select {
-    flex: 0 1 150px; 
+  .BacklogPage .form-row input,
+  .BacklogPage .form-row select {
+    flex: 0 1 150px;
     margin: 0;
   }
 
-  .form-row input[type="text"],
-  .form-row input[type="date"] {
-    width: 160px; 
+  .BacklogPage .form-row input[type="text"],
+  .BacklogPage .form-row input[type="date"] {
+    width: 160px;
   }
 
-  .form-row select {
+  .BacklogPage .form-row select {
     width: 130px;
   }
 
-  .form-row button {
+  .BacklogPage .form-row button {
     flex-shrink: 0;
     margin-left: 0.5rem;
     width: auto;
   }
-  .board {
+
+  .BacklogPage .board {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
   }
 
-  .column {
+  .BacklogPage .column {
     flex: 1;
     min-width: 280px;
     max-width: 33%;
-}
-  
+  }
 }
