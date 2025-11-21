@@ -1,6 +1,7 @@
 // This is BacklogPage component
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import Header from "./header";
 import '../css/kanbanBacklog.css';
 
 const TESTER_BACKLOG = [
@@ -41,7 +42,6 @@ const TESTER_BACKLOG = [
     dueDate: '2025-03-01'
   }
 ];
-
 function BacklogPage() {
   const [backlogItems, setBacklogItems] = useState(TESTER_BACKLOG);
 
@@ -90,7 +90,6 @@ function BacklogPage() {
       priority: formData.priority,
       dueDate: formData.dueDate
     };
-
     // Shows newest items first, typical with backlogs.
     setBacklogItems(function(prevItems) {
       return [newItem].concat(prevItems);
@@ -107,7 +106,6 @@ function BacklogPage() {
     });
   }
 
-  //  lists for each column
   const plannedItems = backlogItems.filter(function(item) {
     return item.status === 'Planned';
   });
@@ -120,22 +118,7 @@ function BacklogPage() {
 
   return (
     <div className="BacklogPage">
-      {/* Header */}
-      <div className="backlog-header">
-        <div className="header-left">
-          <button className="hamburger" aria-label="Open menu">
-            <i className="bi bi-list"></i>
-          </button>
-          <h1>Project Backlog</h1>
-        </div>
-        <div className="profile">
-          <img
-            src="https://semantic-ui.com/images/avatar2/large/kristy.png"
-            alt="Profile"
-          />
-        </div>
-      </div>
-
+      <Header />
       <div className="backlog-container">
         {/* Nav/Sidebar */}
         <aside className="sidebar">
@@ -148,21 +131,16 @@ function BacklogPage() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/roadmap">
-                  Roadmap
-                </NavLink>
+                <NavLink to="/roadmap">Roadmap</NavLink>
               </li>
               <li>
-                <NavLink to="/backlog">
-                  Tasks and Backlog
-                </NavLink>
+                <NavLink to="/backlog">Tasks and Backlog</NavLink>
               </li>
             </ul>
           </nav>
         </aside>
 
-        {/* Main content */}
-        <main className="backlog-main">
+        <main className="backlog-main mt-5 pt-5">
           {/* Backlog Form */}
           <form id="backlogForm" onSubmit={handleSubmit}>
             <div className="form-row">
@@ -281,7 +259,6 @@ function BacklogPage() {
                   })}
                 </div>
               </div>
-
               {/* In Progress Col */}
               <div className="column">
                 <h2>In Progress</h2>
@@ -304,7 +281,6 @@ function BacklogPage() {
                   })}
                 </div>
               </div>
-
               {/* Completed Col */}
               <div className="column">
                 <h2>Completed</h2>
@@ -336,5 +312,4 @@ function BacklogPage() {
     </div>
   );
 }
-
 export default BacklogPage;

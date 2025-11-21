@@ -20,12 +20,14 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #f3f4f6;
+  padding-top: 60px; 
 }
+
 
 /* Header pinned to top inside BacklogPage */
 .backlog-header {
   position: fixed;
-  top: 0;
+  top: 0px; 
   left: 0;
   right: 0;
   background-color: #fff;
@@ -36,8 +38,9 @@ body {
   justify-content: space-between;
   padding: 0 20px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  z-index: 10;
 }
+
+
 
 .backlog-header .header-left {
   display: flex;
@@ -98,13 +101,14 @@ body {
   border: 2px solid #fff;
 }
 
-/* Push content down below fixed header */
+
 .backlog-container {
-  margin-top: 80px; /* 60px header + some space */
+  margin-top: 140px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
+
 
 /* Sidebar */
 
@@ -117,7 +121,7 @@ body {
   height: 100%;
   position: fixed;
   left: 0;
-  top: 60px; /* under the header */
+  top: 60px;
 }
 
 .BacklogPage .sidebar h2 {
@@ -316,7 +320,7 @@ body {
   transform: translate3d(0px, -1px, 0px);/* lifts card to make it feel interactive!*/
 }
 
-/* ---- Responsive tweaks ---- */
+/* ---- Responsive + Mobile first ---- */
 
 @media (min-width: 598px) {
   .BacklogPage .filters-bar {
