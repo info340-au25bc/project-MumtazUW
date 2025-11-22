@@ -106,6 +106,18 @@ function BacklogPage() {
     });
   }
 
+  // Move item to a new status
+  function moveItem(id, newStatus) {
+    setBacklogItems(prev =>
+      prev.map(item => (item.id === id ? { ...item, status: newStatus } : item))
+    );
+  }
+
+  // Delete an item
+  function deleteItem(id) {
+    setBacklogItems(prev => prev.filter(item => item.id !== id));
+  }
+
   const plannedItems = backlogItems.filter(function(item) {
     return item.status === 'Planned';
   });
@@ -254,6 +266,12 @@ function BacklogPage() {
                           <br />
                           <strong>Due:</strong> {item.dueDate}
                         </p>
+                      {/*  Action Buttons */}
+                      <div className="card-actions">
+                        <button onClick={() => moveItem(item.id, "In Progress")}>To In Progress</button>
+                        <button onClick={() => moveItem(item.id, "Completed")}>To Completed</button>
+                        <button className="delete-btn" onClick={() => deleteItem(item.id)}>Delete</button>
+                      </div>
                       </div>
                     );
                   })}
@@ -276,6 +294,12 @@ function BacklogPage() {
                           <br />
                           <strong>Due:</strong> {item.dueDate}
                         </p>
+                      {/*  Action Buttons */}
+                      <div className="card-actions">
+                        <button onClick={() => moveItem(item.id, "Planned")}>To Planned</button>
+                        <button onClick={() => moveItem(item.id, "Completed")}>To Completed</button>
+                        <button className="delete-btn" onClick={() => deleteItem(item.id)}>Delete</button>
+                      </div>
                       </div>
                     );
                   })}
@@ -298,6 +322,12 @@ function BacklogPage() {
                           <br />
                           <strong>Due:</strong> {item.dueDate}
                         </p>
+                      {/*  Action Buttons */}
+                      <div className="card-actions">
+                        <button onClick={() => moveItem(item.id, "Planned")}>To Planned</button>
+                        <button onClick={() => moveItem(item.id, "In Progress")}>To In Progress</button>
+                        <button className="delete-btn" onClick={() => deleteItem(item.id)}>Delete</button>
+                      </div>
                       </div>
                     );
                   })}

@@ -1,4 +1,4 @@
-/*Hover Card Effect: https://stackoverflow.com/questions/51184792/fluent-design-card-lift-effect*/
+/* Hover Card Effect: https://stackoverflow.com/questions/51184792/fluent-design-card-lift-effect */
 * {
   box-sizing: border-box;
   font-family: "Segoe UI", sans-serif;
@@ -14,20 +14,18 @@ body {
 }
 
 /* ---- BacklogPage layout ---- */
-
 .BacklogPage {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #f3f4f6;
-  padding-top: 60px; 
+  padding-top: 60px;
 }
-
 
 /* Header pinned to top inside BacklogPage */
 .backlog-header {
   position: fixed;
-  top: 0px; 
+  top: 0;
   left: 0;
   right: 0;
   background-color: #fff;
@@ -40,22 +38,21 @@ body {
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-
-
 .backlog-header .header-left {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.backlog-header i {
-  font-size: 24px;
+.backlog-header i,
+.backlog-header .hamburger i {
   color: #26bbe4;
   transition: transform 0.2s ease, color 0.2s ease;
   cursor: pointer;
 }
 
-.backlog-header i:hover {
+.backlog-header i:hover,
+.backlog-header .hamburger:hover i {
   transform: scale(1.1);
   color: #0b6780;
 }
@@ -82,17 +79,6 @@ body {
   border-radius: 6px;
 }
 
-.backlog-header .hamburger i {
-  font-size: 28px;
-  color: #26bbe4;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.backlog-header .hamburger:hover i {
-  transform: scale(1.1);
-  color: #0b6780;
-}
-
 .backlog-header .profile img,
 .BacklogPage .profile img {
   width: 40px;
@@ -101,7 +87,6 @@ body {
   border: 2px solid #fff;
 }
 
-
 .backlog-container {
   margin-top: 140px;
   display: flex;
@@ -109,9 +94,7 @@ body {
   flex: 1;
 }
 
-
 /* Sidebar */
-
 .BacklogPage .sidebar {
   display: none;
   width: 220px;
@@ -158,7 +141,6 @@ body {
 }
 
 /* Main content */
-
 .backlog-main {
   padding: 25px;
   flex: 1;
@@ -166,7 +148,6 @@ body {
 }
 
 /* Form */
-
 .backlog-main form {
   display: flex;
   flex-direction: column;
@@ -216,7 +197,6 @@ body {
 }
 
 /* Filters */
-
 .BacklogPage .filters-bar {
   display: flex;
   flex-direction: column;
@@ -256,7 +236,6 @@ body {
 }
 
 /* Kanban */
-
 .BacklogPage .kanban-container {
   background-color: #fff;
   box-shadow: 0 3px 6px rgba(0,0,0,0.1);
@@ -303,6 +282,8 @@ body {
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
+  min-height: 330px;
+  padding: 1rem;
 }
 
 .BacklogPage .card-header {
@@ -311,17 +292,51 @@ body {
 }
 
 .BacklogPage .card-content {
-  padding: 1rem;
+  padding: 0.5rem;
   color: black;
 }
 
 .BacklogPage .card:hover {
   background-color: #e0e0e0;
-  transform: translate3d(0px, -1px, 0px);/* lifts card to make it feel interactive!*/
+  transform: translate3d(0px, -1px, 0px);
+}
+
+/* Card actions */
+.BacklogPage .card-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+}
+
+.BacklogPage .card-actions button {
+  flex: 1;
+  min-width: 100px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.BacklogPage .card-actions button:hover {
+  background-color: #e0e0e0;
+}
+
+.BacklogPage .card-actions .delete-btn {
+  background-color: #ff4d4f;
+  color: white;
+  border-color: #ff4d4f;
+}
+
+.BacklogPage .card-actions .delete-btn:hover {
+  background-color: #ff1f1f;
 }
 
 /* ---- Responsive + Mobile first ---- */
-
 @media (min-width: 598px) {
   .BacklogPage .filters-bar {
     flex-direction: row;
