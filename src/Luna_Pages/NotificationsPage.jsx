@@ -10,7 +10,7 @@ function NotificationsPage() {
       <header className="header">
         <h1>Notifications</h1>
 
-        <nav className="nav">
+        <nav className="nav" aria-label="Primary navigation">
           <NavLink to="/">Projects Overview</NavLink>
           <NavLink to="/projects">Projects</NavLink>
           <NavLink to="/backlog">Backlog</NavLink>
@@ -31,14 +31,14 @@ function NotificationsPage() {
           <div className="filters">
             {/* Sort */}
             <label htmlFor="sort">Sort:</label>
-            <select id="sort">
+            <select id="sort" name="sort">
               <option>Newest</option>
               <option>Oldest</option>
             </select>
 
             {/* Filter */}
             <label htmlFor="filter">Filter:</label>
-            <select id="filter">
+            <select id="filter" name="filter">
               <option>All</option>
               <option>Completed Tasks</option>
               <option>In Progress</option>
@@ -48,10 +48,10 @@ function NotificationsPage() {
         </div>
 
         {/* Notification List */}
-        <section className="notification-list">
+        <section className="notification-list" aria-label="Recent notifications list">
 
           {/* Notification 1 */}
-          <div className="notification unread">
+          <div className="notification unread" role="listitem">
             <div className="icon">{/* SVG icons go here later */}</div>
 
             <div className="content">
@@ -66,7 +66,7 @@ function NotificationsPage() {
           </div>
 
           {/* Notification 2 */}
-          <div className="notification">
+          <div className="notification" role="listitem">
             <div className="icon"></div>
 
             <div className="content">

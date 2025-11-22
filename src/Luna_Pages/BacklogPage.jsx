@@ -187,66 +187,102 @@ function BacklogPage() {
         </aside>
 
         <main className="backlog-main mt-5 pt-5">
-          {/* Backlog Form */}
-          <form id="backlogForm" onSubmit={handleSubmit}>
-            <div className="form-row">
-              <input
-                type="text"
-                id="feature"
-                name="feature"
-                placeholder="Feature name"
-                value={formData.feature}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                id="owner"
-                name="owner"
-                placeholder="Owner"
-                value={formData.owner}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                id="description"
-                name="description"
-                placeholder="Description"
-                value={formData.description}
-                onChange={handleInputChange}
-              />
-              <select
-                id="status"
-                name="status"
-                value={formData.status}
-                onChange={handleInputChange}
-              >
-                <option value="">Status</option>
-                <option>Planned</option>
-                <option>In Progress</option>
-                <option>Completed</option>
-              </select>
-              <select
-                id="priority"
-                name="priority"
-                value={formData.priority}
-                onChange={handleInputChange}
-              >
-                <option value="">Priority</option>
-                <option>Critical (P0)</option>
-                <option>High (P1)</option>
-                <option>Functional (P2)</option>
-                <option>Enhancement (P3)</option>
-              </select>
-              <input
-                type="date"
-                id="dueDate"
-                name="dueDate"
-                value={formData.dueDate}
-                onChange={handleInputChange}
-              />
-              <button type="submit">Add Item</button>
-            </div>
-          </form>
+  {/* Backlog Form */}
+  <form id="backlogForm" onSubmit={handleSubmit}>
+    <div className="form-row">
+      <div className="form-group">
+        <label htmlFor="feature" className="sr-only">
+          Feature name
+        </label>
+        <input
+          type="text"
+          id="feature"
+          name="feature"
+          placeholder="Feature name"
+          value={formData.feature}
+          onChange={handleInputChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="owner" className="sr-only">
+          Owner
+        </label>
+        <input
+          type="text"
+          id="owner"
+          name="owner"
+          placeholder="Owner"
+          value={formData.owner}
+          onChange={handleInputChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="description" className="sr-only">
+          Description
+        </label>
+        <input
+          type="text"
+          id="description"
+          name="description"
+          placeholder="Description"
+          value={formData.description}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="status" className="sr-only">
+          Status
+        </label>
+        <select
+          id="status"
+          name="status"
+          value={formData.status}
+          onChange={handleInputChange}
+        >
+          <option value="">Status</option>
+          <option>Planned</option>
+          <option>In Progress</option>
+          <option>Completed</option>
+        </select>
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="priority" className="sr-only">
+          Priority
+        </label>
+        <select
+          id="priority"
+          name="priority"
+          value={formData.priority}
+          onChange={handleInputChange}
+        >
+          <option value="">Priority</option>
+          <option>Critical (P0)</option>
+          <option>High (P1)</option>
+          <option>Functional (P2)</option>
+          <option>Enhancement (P3)</option>
+        </select>
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="dueDate" className="sr-only">
+          Due date
+        </label>
+        <input
+          type="date"
+          id="dueDate"
+          name="dueDate"
+          value={formData.dueDate}
+          onChange={handleInputChange}
+        />
+      </div>
+
+      <button type="submit">Add Item</button>
+    </div>
+  </form>
+
 
           {/* Filters row - Static right now!! */}
           <div className="filters-bar">

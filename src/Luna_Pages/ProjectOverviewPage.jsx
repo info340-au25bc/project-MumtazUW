@@ -12,7 +12,7 @@ function ProjectOverviewPage() {
           <button className="hamburger" aria-label="Open menu">
             <i className="bi bi-list"></i>
           </button>
-          <i className="bi bi-house-fill"></i>
+          <i className="bi bi-house-fill" aria-hidden="true"></i>
           <h1>Project Overview</h1>
         </div>
 
@@ -33,12 +33,9 @@ function ProjectOverviewPage() {
           <nav>
             <ul>
               <li>
-                <NavLink to="/" className="active">
+                <NavLink to="/projOverview" className="active">
                   Project Overview
                 </NavLink>
-              </li>
-              <li>
-                <NavLink to="/projects">Projects</NavLink>
               </li>
               <li>
                 <NavLink to="/roadmap">Roadmap</NavLink>
@@ -47,7 +44,7 @@ function ProjectOverviewPage() {
                 <NavLink to="/backlog">Tasks and Backlog</NavLink>
               </li>
               <li>
-                <NavLink to="/notifications">Notifications</NavLink>
+                <NavLink to="/team">Our Team</NavLink>
               </li>
             </ul>
           </nav>
