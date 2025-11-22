@@ -351,12 +351,9 @@ function BacklogPage() {
                       >
                         <h3 className="card-header">{item.feature}</h3>
                         <p className="card-content">
-                          {item.description}
-                          <br />
-                          <strong>Owner:</strong> {item.owner}
-                          <br />
-                          <strong>Priority:</strong> {item.priority}
-                          <br />
+                          {item.description}{' '}
+                          <strong>Owner:</strong> {item.owner}{' '}
+                          <strong>Priority:</strong> {item.priority}{' '}
                           <strong>Due:</strong> {item.dueDate}
                         </p>
                       </div>
@@ -381,12 +378,9 @@ function BacklogPage() {
                       >
                         <h3 className="card-header">{item.feature}</h3>
                         <p className="card-content">
-                          {item.description}
-                          <br />
-                          <strong>Owner:</strong> {item.owner}
-                          <br />
-                          <strong>Priority:</strong> {item.priority}
-                          <br />
+                          {item.description}{' '}
+                          <strong>Owner:</strong> {item.owner}{' '}
+                          <strong>Priority:</strong> {item.priority}{' '}
                           <strong>Due:</strong> {item.dueDate}
                         </p>
                       </div>
@@ -411,12 +405,9 @@ function BacklogPage() {
                       >
                         <h3 className="card-header">{item.feature}</h3>
                         <p className="card-content">
-                          {item.description}
-                          <br />
-                          <strong>Owner:</strong> {item.owner}
-                          <br />
-                          <strong>Priority:</strong> {item.priority}
-                          <br />
+                          {item.description}{' '}
+                          <strong>Owner:</strong> {item.owner}{' '}
+                          <strong>Priority:</strong> {item.priority}{' '}
                           <strong>Due:</strong> {item.dueDate}
                         </p>
                       </div>
