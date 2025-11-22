@@ -88,7 +88,7 @@ body {
 }
 
 .backlog-container {
-  margin-top: 140px;
+  margin-top: 180px;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -153,7 +153,6 @@ body {
   flex-direction: column;
   background-color: #fff;
   padding: 1rem;
-  margin-bottom: 2rem;
   border-radius: 11px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
@@ -206,7 +205,6 @@ body {
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   gap: 0.75rem;
-  margin-bottom: 1.5rem;
 }
 
 .BacklogPage .filter-group {
