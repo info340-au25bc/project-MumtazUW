@@ -107,7 +107,7 @@ function BacklogPage() {
       };
     });
   }
-
+  const[nextId, setNextId] = useState(1);
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -122,9 +122,8 @@ function BacklogPage() {
       // maybe add a message here for errors?
       return;
     }
-
     const newItem = {
-      id: Date.now(),
+      id: nextId,
       feature: formData.feature,
       owner: formData.owner,
       description: formData.description,
@@ -132,6 +131,8 @@ function BacklogPage() {
       priority: formData.priority,
       dueDate: formData.dueDate
     };
+      setBacklogItems(prev => prev.concat(newItem));
+      setNextId(prev => prev + 1); //temp till we can use firebase entirely
 
     // Shows newest items first, typical with backlogs.
     setBacklogItems(function(prevItems) {
