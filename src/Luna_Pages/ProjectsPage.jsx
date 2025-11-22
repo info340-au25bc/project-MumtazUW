@@ -2,7 +2,23 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../css/projectsPage.css';
 
+function ProjectsCard(props){
+  return (
+    <div className="card">
+      <img
+        src={props.image}
+        alt="abstract project art"
+      />  
+    <div className="card-text">
+      <h3>{props.title}</h3>
+      <p>{props.description}</p>
+    </div>
+  </div>
+  );
+}
+
 function ProjectsPage() {
+
   return (
     <div className="projects-page">
       {/* Header */}
@@ -64,6 +80,11 @@ function ProjectsPage() {
           <section className="card-container">
 
             {/* Card 1 */}
+            <ProjectsCard
+              image="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
+              title="Project 1"
+              description="Corporate Project Art"
+            />
             <div className="card">
               <img
                 src="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
