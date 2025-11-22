@@ -42,6 +42,7 @@ const TESTER_BACKLOG = [
     dueDate: '2025-03-01'
   }
 ];
+
 function BacklogPage() {
   const [backlogItems, setBacklogItems] = useState(TESTER_BACKLOG);
 
@@ -70,26 +71,31 @@ function BacklogPage() {
   function handleEditSubmit(event) {
     event.preventDefault();
 
-    setBacklogItems(previousItems =>
-      previousItems.map(item => {
+    setBacklogItems(function(previousItems) {
+      return previousItems.map(function(item) {
         if (item.id === editingItem.id) {
-          return editingItem; 
+          return editingItem;
         } else {
-          return item; 
+          return item;
         }
-      })
-    );
+      });
+    });
+
     closeEditModal();
   }
 
   function handleEditChange(event) {
-    const { name, value } = event.target;
+    const name = event.target.name;
+    const value = event.target.value;
 
-    setEditingItem(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setEditingItem(function(prev) {
+      return {
+        ...prev,
+        [name]: value
+      };
+    });
   }
+
   function handleInputChange(event) {
     const fieldName = event.target.name;
     const fieldValue = event.target.value;
@@ -101,6 +107,7 @@ function BacklogPage() {
       };
     });
   }
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -125,6 +132,7 @@ function BacklogPage() {
       priority: formData.priority,
       dueDate: formData.dueDate
     };
+
     // Shows newest items first, typical with backlogs.
     setBacklogItems(function(prevItems) {
       return [newItem].concat(prevItems);
@@ -143,15 +151,21 @@ function BacklogPage() {
 
   // Delete an item
   function deleteItem(id) {
-    setBacklogItems(prev => prev.filter(item => item.id !== id));
+    setBacklogItems(function(prev) {
+      return prev.filter(function(item) {
+        return item.id !== id;
+      });
+    });
   }
 
   const plannedItems = backlogItems.filter(function(item) {
     return item.status === 'Planned';
   });
+
   const inProgressItems = backlogItems.filter(function(item) {
     return item.status === 'In Progress';
   });
+
   const completedItems = backlogItems.filter(function(item) {
     return item.status === 'Completed';
   });
@@ -166,7 +180,7 @@ function BacklogPage() {
           <nav>
             <ul>
               <li>
-                <NavLink to="/" >
+                <NavLink to="/">
                   Project Overview
                 </NavLink>
               </li>
@@ -177,7 +191,9 @@ function BacklogPage() {
                 <NavLink to="/roadmap">Roadmap</NavLink>
               </li>
               <li>
-                <NavLink to="/backlog" className="active">Tasks and Backlog</NavLink>
+                <NavLink to="/backlog" className="active">
+                  Tasks and Backlog
+                </NavLink>
               </li>
               <li>
                 <NavLink to="/notifications">Notifications</NavLink>
@@ -187,102 +203,102 @@ function BacklogPage() {
         </aside>
 
         <main className="backlog-main mt-5 pt-5">
-  {/* Backlog Form */}
-  <form id="backlogForm" onSubmit={handleSubmit}>
-    <div className="form-row">
-      <div className="form-group">
-        <label htmlFor="feature" className="sr-only">
-          Feature name
-        </label>
-        <input
-          type="text"
-          id="feature"
-          name="feature"
-          placeholder="Feature name"
-          value={formData.feature}
-          onChange={handleInputChange}
-        />
-      </div>
+          {/* Backlog Form */}
+          <form id="backlogForm" onSubmit={handleSubmit}>
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="feature" className="sr-only">
+                  Feature name
+                </label>
+                <input
+                  type="text"
+                  id="feature"
+                  name="feature"
+                  placeholder="Feature name"
+                  value={formData.feature}
+                  onChange={handleInputChange}
+                />
+              </div>
 
-      <div className="form-group">
-        <label htmlFor="owner" className="sr-only">
-          Owner
-        </label>
-        <input
-          type="text"
-          id="owner"
-          name="owner"
-          placeholder="Owner"
-          value={formData.owner}
-          onChange={handleInputChange}
-        />
-      </div>
+              <div className="form-group">
+                <label htmlFor="owner" className="sr-only">
+                  Owner
+                </label>
+                <input
+                  type="text"
+                  id="owner"
+                  name="owner"
+                  placeholder="Owner"
+                  value={formData.owner}
+                  onChange={handleInputChange}
+                />
+              </div>
 
-      <div className="form-group">
-        <label htmlFor="description" className="sr-only">
-          Description
-        </label>
-        <input
-          type="text"
-          id="description"
-          name="description"
-          placeholder="Description"
-          value={formData.description}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="status" className="sr-only">
-          Status
-        </label>
-        <select
-          id="status"
-          name="status"
-          value={formData.status}
-          onChange={handleInputChange}
-        >
-          <option value="">Status</option>
-          <option>Planned</option>
-          <option>In Progress</option>
-          <option>Completed</option>
-        </select>
-      </div>
+              <div className="form-group">
+                <label htmlFor="description" className="sr-only">
+                  Description
+                </label>
+                <input
+                  type="text"
+                  id="description"
+                  name="description"
+                  placeholder="Description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                />
+              </div>
 
-      <div className="form-group">
-        <label htmlFor="priority" className="sr-only">
-          Priority
-        </label>
-        <select
-          id="priority"
-          name="priority"
-          value={formData.priority}
-          onChange={handleInputChange}
-        >
-          <option value="">Priority</option>
-          <option>Critical (P0)</option>
-          <option>High (P1)</option>
-          <option>Functional (P2)</option>
-          <option>Enhancement (P3)</option>
-        </select>
-      </div>
+              <div className="form-group">
+                <label htmlFor="status" className="sr-only">
+                  Status
+                </label>
+                <select
+                  id="status"
+                  name="status"
+                  value={formData.status}
+                  onChange={handleInputChange}
+                >
+                  <option value="">Status</option>
+                  <option>Planned</option>
+                  <option>In Progress</option>
+                  <option>Completed</option>
+                </select>
+              </div>
 
-      <div className="form-group">
-        <label htmlFor="dueDate" className="sr-only">
-          Due date
-        </label>
-        <input
-          type="date"
-          id="dueDate"
-          name="dueDate"
-          value={formData.dueDate}
-          onChange={handleInputChange}
-        />
-      </div>
+              <div className="form-group">
+                <label htmlFor="priority" className="sr-only">
+                  Priority
+                </label>
+                <select
+                  id="priority"
+                  name="priority"
+                  value={formData.priority}
+                  onChange={handleInputChange}
+                >
+                  <option value="">Priority</option>
+                  <option>Critical (P0)</option>
+                  <option>High (P1)</option>
+                  <option>Functional (P2)</option>
+                  <option>Enhancement (P3)</option>
+                </select>
+              </div>
 
-      <button type="submit">Add Item</button>
-    </div>
-  </form>
+              <div className="form-group">
+                <label htmlFor="dueDate" className="sr-only">
+                  Due date
+                </label>
+                <input
+                  type="date"
+                  id="dueDate"
+                  name="dueDate"
+                  value={formData.dueDate}
+                  onChange={handleInputChange}
+                />
+              </div>
 
+              <button type="submit">Add Item</button>
+            </div>
+          </form>
 
           {/* Filters row - Static right now!! */}
           <div className="filters-bar">
@@ -315,10 +331,11 @@ function BacklogPage() {
               </select>
             </div>
           </div>
+
           {/* The Kanban board */}
           <div className="kanban-container">
             <div className="kanban-columns">
-              {/* Planned Col*/}
+              {/* Planned Col */}
               <div className="column">
                 <h2>Planned</h2>
                 <div className="card-container" id="plannedContainer">
@@ -327,7 +344,9 @@ function BacklogPage() {
                       <div
                         className="card"
                         key={item.id}
-                        onClick={() => openEditModal(item)}
+                        onClick={function() {
+                          openEditModal(item);
+                        }}
                         style={{ cursor: "pointer" }}
                       >
                         <h3 className="card-header">{item.feature}</h3>
@@ -355,7 +374,9 @@ function BacklogPage() {
                       <div
                         className="card"
                         key={item.id}
-                        onClick={() => openEditModal(item)}
+                        onClick={function() {
+                          openEditModal(item);
+                        }}
                         style={{ cursor: "pointer" }}
                       >
                         <h3 className="card-header">{item.feature}</h3>
@@ -383,7 +404,9 @@ function BacklogPage() {
                       <div
                         className="card"
                         key={item.id}
-                        onClick={() => openEditModal(item)}
+                        onClick={function() {
+                          openEditModal(item);
+                        }}
                         style={{ cursor: "pointer" }}
                       >
                         <h3 className="card-header">{item.feature}</h3>
@@ -403,6 +426,7 @@ function BacklogPage() {
               </div>
             </div>
           </div>
+
           {showModal && editingItem && (
             <div
               className="modal fade show"
@@ -511,7 +535,7 @@ function BacklogPage() {
                       <button
                         type="button"
                         className="btn btn-danger"
-                        onClick={() => {
+                        onClick={function() {
                           deleteItem(editingItem.id);
                           closeEditModal();
                         }}
@@ -541,4 +565,5 @@ function BacklogPage() {
     </div>
   );
 }
+
 export default BacklogPage;
