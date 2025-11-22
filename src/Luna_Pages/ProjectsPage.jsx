@@ -1,6 +1,35 @@
 import React from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../css/projectsPage.css';
+
+const TESTPROJECTS = [
+  {
+    id: 1,
+    title: "Project 1",
+    description: "Doloremque commodi unde eaque! Et natus dolorum corrupti ut numquam.",
+    image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
+  },
+  {
+    id: 2,
+    title: "Project 2",
+    description: "Odio praesentium cum nemo nesciunt architecto, quam voluptate porro inventore.",
+    image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
+  },
+  {
+    id: 3,
+    title: "Project 3",
+    description: "Dignissimos consequuntur maxime harum debitis ratione, culpa iure pariatur quaerat?",
+    image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
+  },
+  {
+    id: 4,
+    title: "Project 4",
+    description: "Odit id earum commodi tempora voluptatum mollitia dolorum, perspiciatis nulla!",
+    image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
+  }
+];
+
 
 function ProjectsCard(props){
   return (
@@ -18,7 +47,19 @@ function ProjectsCard(props){
 }
 
 function ProjectsPage() {
+  const [projects, setProjects] = useState(TESTPROJECTS);
 
+  function handleAddProject() {
+    const newProject = {
+      id: projects.length + 1,
+      title: `Project ${projects.length + 1}`,
+      description: "New project description",
+      image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
+    };
+    setProjects(function(prevProjects) {;
+      return prevProjects.concat(newProject);
+    });
+    }
   return (
     <div className="projects-page">
       {/* Header */}
@@ -73,73 +114,21 @@ function ProjectsPage() {
           {/* Header Row */}
           <section className="projects-header-row">
             <h2>Your Projects</h2>
-            <button className="add-project-btn">Add Project</button>
+            <button className="add-project-btn" onClick={handleAddProject}>Add Project</button>
           </section>
 
           {/* Cards */}
           <section className="card-container">
-
-            {/* Card 1 */}
-            <ProjectsCard
-              image="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
-              title="Project 1"
-              description="Corporate Project Art"
-            />
-            <div className="card">
-              <img
-                src="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
-                alt="abstract project art"
-              />
-              <div className="card-text">
-                <h3>Project 1</h3>
-                <p>
-                  Doloremque commodi unde eaque! Et natus dolorum corrupti ut numquam.
-                </p>
-              </div>
-            </div>
-
-            {/* Card 2 */}
-            <div className="card">
-              <img
-                src="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
-                alt="abstract project art"
-              />
-              <div className="card-text">
-                <h3>Project 2</h3>
-                <p>
-                  Odio praesentium cum nemo nesciunt architecto, quam voluptate porro inventore.
-                </p>
-              </div>
-            </div>
-
-            {/* Card 3 */}
-            <div className="card">
-              <img
-                src="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
-                alt="abstract project art"
-              />
-              <div className="card-text">
-                <h3>Project 3</h3>
-                <p>
-                  Dignissimos consequuntur maxime harum debitis ratione, culpa iure pariatur quaerat?
-                </p>
-              </div>
-            </div>
-
-            {/* Card 4 */}
-            <div className="card">
-              <img
-                src="https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
-                alt="abstract project art"
-              />
-              <div className="card-text">
-                <h3>Project 4</h3>
-                <p>
-                  Odit id earum commodi tempora voluptatum mollitia dolorum, perspiciatis nulla!
-                </p>
-              </div>
-            </div>
-
+            {TESTPROJECTS.map(function(project) {
+              return (
+                <ProjectsCard
+                  key={project.id}
+                  image={project.image}
+                  title={project.title}
+                  description={project.description}
+                />
+              );
+            })}
           </section>
         </main>
 
