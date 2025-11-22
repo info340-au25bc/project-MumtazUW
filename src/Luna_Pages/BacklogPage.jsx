@@ -166,15 +166,21 @@ function BacklogPage() {
           <nav>
             <ul>
               <li>
-                <NavLink to="/" className="active">
+                <NavLink to="/" >
                   Project Overview
                 </NavLink>
+              </li>
+              <li>
+                <NavLink to="/projects">Projects</NavLink>
               </li>
               <li>
                 <NavLink to="/roadmap">Roadmap</NavLink>
               </li>
               <li>
-                <NavLink to="/backlog">Tasks and Backlog</NavLink>
+                <NavLink to="/backlog" className="active">Tasks and Backlog</NavLink>
+              </li>
+              <li>
+                <NavLink to="/notifications">Notifications</NavLink>
               </li>
             </ul>
           </nav>

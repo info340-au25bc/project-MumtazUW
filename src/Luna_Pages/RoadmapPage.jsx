@@ -9,11 +9,13 @@ function RoadmapPage() {
       <header className="header">
         <h1>Product Roadmap</h1>
         <nav className="nav">
+          <NavLink to="/">Projects Overview</NavLink>
+          <NavLink to="/projects">Projects</NavLink>
           <NavLink to="/backlog">Backlog</NavLink>
           <NavLink to="/roadmap" className="active">
             Roadmap
           </NavLink>
-          <NavLink to="/notification">Notification</NavLink>
+          <NavLink to="/notifications">Notification</NavLink>
         </nav>
       </header>
 

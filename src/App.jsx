@@ -10,14 +10,6 @@ import SignupPage from './Luna_Pages/SignupPage';
 function App() {
   return (
     <div>
-      <nav style={{ padding: '0.5rem 1rem', backgroundColor: '#eee' }}>
-        <NavLink to="/" style={{ marginRight: '1rem' }}>Overview</NavLink>
-        <NavLink to="/projects" style={{ marginRight: '1rem' }}>Projects</NavLink>
-        <NavLink to="/backlog" style={{ marginRight: '1rem' }}>Backlog</NavLink>
-        <NavLink to="/roadmap" style={{ marginRight: '1rem' }}>Roadmap</NavLink>
-        <NavLink to="/notifications" style={{ marginRight: '1rem' }}>Notifications</NavLink>
-        <NavLink to="/signup">Sign Up</NavLink>
-      </nav>
 
       <Routes>
         <Route path="/" element={<ProjectOverviewPage />} />

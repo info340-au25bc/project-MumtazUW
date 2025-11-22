@@ -317,7 +317,6 @@ body {
   font-size: 0.85rem;
   border-radius: 6px;
   border: 1px solid #ccc;
-  background-color: #f0f0f0;
   cursor: pointer;
   transition: 0.2s;
 }

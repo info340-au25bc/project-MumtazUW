@@ -132,7 +132,6 @@ header h1 {
 
 .archive-btn,
 .delete-btn {
-  background: none;
   border: 1px solid #cccccc;
   border-radius: 6px;
   padding: 0.25rem 0.5rem;

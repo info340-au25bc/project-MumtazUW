@@ -11,6 +11,8 @@ function NotificationsPage() {
         <h1>Notifications</h1>
 
         <nav className="nav">
+          <NavLink to="/">Projects Overview</NavLink>
+          <NavLink to="/projects">Projects</NavLink>
           <NavLink to="/backlog">Backlog</NavLink>
           <NavLink to="/roadmap">Roadmap</NavLink>
           <NavLink to="/notifications" className="active">

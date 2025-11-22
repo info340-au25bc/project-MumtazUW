@@ -31,9 +31,12 @@ function ProjectsPage() {
           <nav>
             <ul>
               <li>
-                <NavLink to="/projOverview" className="active">
+                <NavLink to="/">
                   Project Overview
                 </NavLink>
+              </li>
+              <li>
+                <NavLink to="/projects" className="active">Projects</NavLink>
               </li>
               <li>
                 <NavLink to="/roadmap">Roadmap</NavLink>
@@ -42,7 +45,7 @@ function ProjectsPage() {
                 <NavLink to="/backlog">Tasks and Backlog</NavLink>
               </li>
               <li>
-                <NavLink to="/team">Our Team</NavLink>
+                <NavLink to="/notifications">Notifications</NavLink>
               </li>
             </ul>
           </nav>
