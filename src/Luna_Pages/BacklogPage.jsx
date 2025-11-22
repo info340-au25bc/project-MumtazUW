@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Header from "./header";
 import '../css/kanbanBacklog.css';
-
+// Modal from Bootstrap: https://getbootstrap.com/docs/4.0/components/modal/
 const TESTER_BACKLOG = [
   {
     id: 1,
@@ -54,6 +54,40 @@ function BacklogPage() {
     dueDate: ''
   });
 
+  const [editingItem, setEditingItem] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  function openEditModal(item) {
+    setEditingItem(item);
+    setShowModal(true);
+  }
+
+  function closeEditModal() {
+    setEditingItem(null);
+    setShowModal(false);
+  }
+
+  function handleEditSubmit(event) {
+    event.preventDefault();
+    setBacklogItems(prev =>
+      prev.map(it => {
+        if (it.id === editingItem.id) {
+          return editingItem;
+        } else {
+          return it;
+        }
+      })
+    );
+    closeEditModal();
+  }
+  function handleEditChange(event) {
+    const { name, value } = event.target;
+
+    setEditingItem(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  }
   function handleInputChange(event) {
     const fieldName = event.target.name;
     const fieldValue = event.target.value;
@@ -65,7 +99,6 @@ function BacklogPage() {
       };
     });
   }
-
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -104,13 +137,6 @@ function BacklogPage() {
       priority: '',
       dueDate: ''
     });
-  }
-
-  // Move item to a new status
-  function moveItem(id, newStatus) {
-    setBacklogItems(prev =>
-      prev.map(item => (item.id === id ? { ...item, status: newStatus } : item))
-    );
   }
 
   // Delete an item
@@ -245,7 +271,6 @@ function BacklogPage() {
               </select>
             </div>
           </div>
-
           {/* The Kanban board */}
           <div className="kanban-container">
             <div className="kanban-columns">
@@ -255,7 +280,12 @@ function BacklogPage() {
                 <div className="card-container" id="plannedContainer">
                   {plannedItems.map(function(item) {
                     return (
-                      <div className="card" key={item.id}>
+                      <div
+                        className="card"
+                        key={item.id}
+                        onClick={() => openEditModal(item)}
+                        style={{ cursor: "pointer" }}
+                      >
                         <h3 className="card-header">{item.feature}</h3>
                         <p className="card-content">
                           {item.description}
@@ -266,24 +296,24 @@ function BacklogPage() {
                           <br />
                           <strong>Due:</strong> {item.dueDate}
                         </p>
-                      {/*  Action Buttons */}
-                      <div className="card-actions">
-                        <button onClick={() => moveItem(item.id, "In Progress")}>To In Progress</button>
-                        <button onClick={() => moveItem(item.id, "Completed")}>To Completed</button>
-                        <button className="delete-btn" onClick={() => deleteItem(item.id)}>Delete</button>
-                      </div>
                       </div>
                     );
                   })}
                 </div>
               </div>
+
               {/* In Progress Col */}
               <div className="column">
                 <h2>In Progress</h2>
                 <div className="card-container" id="progressContainer">
                   {inProgressItems.map(function(item) {
                     return (
-                      <div className="card" key={item.id}>
+                      <div
+                        className="card"
+                        key={item.id}
+                        onClick={() => openEditModal(item)}
+                        style={{ cursor: "pointer" }}
+                      >
                         <h3 className="card-header">{item.feature}</h3>
                         <p className="card-content">
                           {item.description}
@@ -294,24 +324,24 @@ function BacklogPage() {
                           <br />
                           <strong>Due:</strong> {item.dueDate}
                         </p>
-                      {/*  Action Buttons */}
-                      <div className="card-actions">
-                        <button onClick={() => moveItem(item.id, "Planned")}>To Planned</button>
-                        <button onClick={() => moveItem(item.id, "Completed")}>To Completed</button>
-                        <button className="delete-btn" onClick={() => deleteItem(item.id)}>Delete</button>
-                      </div>
                       </div>
                     );
                   })}
                 </div>
               </div>
+
               {/* Completed Col */}
               <div className="column">
                 <h2>Completed</h2>
                 <div className="card-container" id="completedContainer">
                   {completedItems.map(function(item) {
                     return (
-                      <div className="card" key={item.id}>
+                      <div
+                        className="card"
+                        key={item.id}
+                        onClick={() => openEditModal(item)}
+                        style={{ cursor: "pointer" }}
+                      >
                         <h3 className="card-header">{item.feature}</h3>
                         <p className="card-content">
                           {item.description}
@@ -322,12 +352,6 @@ function BacklogPage() {
                           <br />
                           <strong>Due:</strong> {item.dueDate}
                         </p>
-                      {/*  Action Buttons */}
-                      <div className="card-actions">
-                        <button onClick={() => moveItem(item.id, "Planned")}>To Planned</button>
-                        <button onClick={() => moveItem(item.id, "In Progress")}>To In Progress</button>
-                        <button className="delete-btn" onClick={() => deleteItem(item.id)}>Delete</button>
-                      </div>
                       </div>
                     );
                   })}
@@ -335,9 +359,140 @@ function BacklogPage() {
               </div>
             </div>
           </div>
+          {showModal && editingItem && (
+            <div
+              className="modal fade show"
+              style={{ display: "block" }}
+              tabIndex="-1"
+            >
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title">Edit Backlog Item</h5>
+                    <button
+                      type="button"
+                      className="close"
+                      style={{ marginLeft: "auto" }}
+                      onClick={closeEditModal}
+                    >
+                      <span>&times;</span>
+                    </button>
+                  </div>
+
+                  <form onSubmit={handleEditSubmit}>
+                    <div className="modal-body">
+                      <div className="form-group mb-2">
+                        <label htmlFor="edit-feature">Feature name</label>
+                        <input
+                          id="edit-feature"
+                          type="text"
+                          name="feature"
+                          value={editingItem.feature}
+                          onChange={handleEditChange}
+                          className="form-control"
+                          placeholder="Feature name"
+                        />
+                      </div>
+
+                      <div className="form-group mb-2">
+                        <label htmlFor="edit-owner">Owner</label>
+                        <input
+                          id="edit-owner"
+                          type="text"
+                          name="owner"
+                          value={editingItem.owner}
+                          onChange={handleEditChange}
+                          className="form-control"
+                          placeholder="Owner"
+                        />
+                      </div>
+
+                      <div className="form-group mb-2">
+                        <label htmlFor="edit-description">Description</label>
+                        <textarea
+                          id="edit-description"
+                          name="description"
+                          value={editingItem.description}
+                          onChange={handleEditChange}
+                          className="form-control"
+                          placeholder="Description"
+                        />
+                      </div>
+
+                      <div className="form-group mb-2">
+                        <label htmlFor="edit-status">Status</label>
+                        <select
+                          id="edit-status"
+                          name="status"
+                          value={editingItem.status}
+                          onChange={handleEditChange}
+                          className="form-control"
+                        >
+                          <option>Planned</option>
+                          <option>In Progress</option>
+                          <option>Completed</option>
+                        </select>
+                      </div>
+
+                      <div className="form-group mb-2">
+                        <label htmlFor="edit-priority">Priority</label>
+                        <select
+                          id="edit-priority"
+                          name="priority"
+                          value={editingItem.priority}
+                          onChange={handleEditChange}
+                          className="form-control"
+                        >
+                          <option>Critical (P0)</option>
+                          <option>High (P1)</option>
+                          <option>Functional (P2)</option>
+                          <option>Enhancement (P3)</option>
+                        </select>
+                      </div>
+
+                      <div className="form-group mb-2">
+                        <label htmlFor="edit-dueDate">Due date</label>
+                        <input
+                          id="edit-dueDate"
+                          type="date"
+                          name="dueDate"
+                          value={editingItem.dueDate}
+                          onChange={handleEditChange}
+                          className="form-control"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="modal-footer">
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => {
+                          deleteItem(editingItem.id);
+                          closeEditModal();
+                        }}
+                      >
+                        Delete
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-secondary"
+                        onClick={closeEditModal}
+                      >
+                        Cancel
+                      </button>
+                      <button type="submit" className="btn btn-primary">
+                        Save changes
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          )}
+
         </main>
       </div>
-
       <footer>© 2025 Luna Product Dashboard | INFO 340 Project</footer>
     </div>
   );
