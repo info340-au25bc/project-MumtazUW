@@ -8,10 +8,10 @@ function ProjectsPage() {
       {/* Header */}
       <header>
         <div className="header-left">
-          <button className="hamburger" aria-label="Open menu">
+        {/*  <button className="hamburger" aria-label="Open menu">
             <i className="bi bi-list"></i>
-          </button>
-          <h1>Luna Health Projects</h1>
+          </button>*/}
+          <h1>Projects</h1>
         </div>
 
         <div className="profile">

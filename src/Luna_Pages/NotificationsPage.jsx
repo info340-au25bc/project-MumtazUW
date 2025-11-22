@@ -9,17 +9,33 @@ function NotificationsPage() {
       {/* Header */}
       <header className="header">
         <h1>Notifications</h1>
-
-        <nav className="nav" aria-label="Primary navigation">
-          <NavLink to="/">Projects Overview</NavLink>
-          <NavLink to="/projects">Projects</NavLink>
-          <NavLink to="/backlog">Backlog</NavLink>
-          <NavLink to="/roadmap">Roadmap</NavLink>
-          <NavLink to="/notifications" className="active">
-            Notification
-          </NavLink>
-        </nav>
       </header>
+      <aside className="sidebar" aria-label="Primary navigation">
+          <h2>Navigation</h2>
+          <nav>
+            <ul>
+              <li>
+                <NavLink to="/">
+                  Project Overview
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/projects">Projects</NavLink>
+              </li>
+              <li>
+                <NavLink to="/roadmap">Roadmap</NavLink>
+              </li>
+              <li>
+                <NavLink to="/backlog">
+                  Tasks and Backlog
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/notifications" className="active">Notifications</NavLink>
+              </li>
+            </ul>
+          </nav>
+      </aside>
 
       {/* Main Content */}
       <main className="notifications-container">

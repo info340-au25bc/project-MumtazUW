@@ -5,9 +5,9 @@ function Header() {
   return (
     <header className="backlog-header">
       <div className="header-left">
-        <button className="hamburger" aria-label="Open menu">
+       {/* <button className="hamburger" aria-label="Open menu">
           <i className="bi bi-list"></i>
-        </button>
+        </button>*/}
         <h1>Project Backlog</h1>
       </div>
       <div className="profile">

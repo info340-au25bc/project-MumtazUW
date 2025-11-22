@@ -9,10 +9,10 @@ function ProjectOverviewPage() {
       {/* Header */}
       <header>
         <div className="header-left">
-          <button className="hamburger" aria-label="Open menu">
+         {/* <button className="hamburger" aria-label="Open menu">
             <i className="bi bi-list"></i>
           </button>
-          <i className="bi bi-house-fill" aria-hidden="true"></i>
+          <i className="bi bi-house-fill" aria-hidden="true"></i>*/}
           <h1>Project Overview</h1>
         </div>
 
@@ -33,9 +33,12 @@ function ProjectOverviewPage() {
           <nav>
             <ul>
               <li>
-                <NavLink to="/projOverview" className="active">
+                <NavLink to="/" className="active">
                   Project Overview
                 </NavLink>
+              </li>
+              <li>
+                <NavLink to="/projects">Projects</NavLink>
               </li>
               <li>
                 <NavLink to="/roadmap">Roadmap</NavLink>
@@ -44,7 +47,7 @@ function ProjectOverviewPage() {
                 <NavLink to="/backlog">Tasks and Backlog</NavLink>
               </li>
               <li>
-                <NavLink to="/team">Our Team</NavLink>
+                <NavLink to="/notifications">Notifications</NavLink>
               </li>
             </ul>
           </nav>

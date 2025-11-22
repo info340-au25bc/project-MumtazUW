@@ -8,16 +8,33 @@ function RoadmapPage() {
       {/* Header */}
       <header className="header">
         <h1>Product Roadmap</h1>
-        <nav className="nav">
-          <NavLink to="/">Projects Overview</NavLink>
-          <NavLink to="/projects">Projects</NavLink>
-          <NavLink to="/backlog">Backlog</NavLink>
-          <NavLink to="/roadmap" className="active">
-            Roadmap
-          </NavLink>
-          <NavLink to="/notifications">Notification</NavLink>
-        </nav>
       </header>
+      <aside className="sidebar" aria-label="Primary navigation">
+          <h2>Navigation</h2>
+          <nav>
+            <ul>
+              <li>
+                <NavLink to="/">
+                  Project Overview
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/projects">Projects</NavLink>
+              </li>
+              <li>
+                <NavLink to="/roadmap" className="active">Roadmap</NavLink>
+              </li>
+              <li>
+                <NavLink to="/backlog">
+                  Tasks and Backlog
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/notifications">Notifications</NavLink>
+              </li>
+            </ul>
+          </nav>
+      </aside>
 
       {/* Main Roadmap Content */}
       <main className="roadmap-container">

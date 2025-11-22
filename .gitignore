@@ -4,3 +4,12 @@ node_modules
 # ignore OS generated files
 .DS_Store
 Thumbs.db
+
+# Vite build output
+dist/
+*.log
+*.cache
+node_modules/
+
+# Firebase hosting cache
+.firebase/
