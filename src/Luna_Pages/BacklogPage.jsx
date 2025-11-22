@@ -69,17 +69,19 @@ function BacklogPage() {
 
   function handleEditSubmit(event) {
     event.preventDefault();
-    setBacklogItems(prev =>
-      prev.map(it => {
-        if (it.id === editingItem.id) {
-          return editingItem;
+
+    setBacklogItems(previousItems =>
+      previousItems.map(item => {
+        if (item.id === editingItem.id) {
+          return editingItem; 
         } else {
-          return it;
+          return item; 
         }
       })
     );
     closeEditModal();
   }
+
   function handleEditChange(event) {
     const { name, value } = event.target;
 
