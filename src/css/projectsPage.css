@@ -79,11 +79,12 @@ button {
   color: #fff;
   border: none;
   padding: 8px 16px;
-  border-radius: 5px;
+  border-radius: 540px;
   font-weight: 500;
   transition: background 0.2s;
   cursor: pointer;
   font-size: 0.9rem;
+
 }
 
 button:hover {
@@ -222,6 +223,30 @@ main {
   font-size: 0.95rem;
   color: #444;
 }
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.form-row label {
+  flex: 0 0 120px;
+  font-weight: bold;
+}
+
+.form-row input,
+.form-row textarea {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  color: #26bbe4;
+}
+.project-modal .modal-header .close {
+  margin-left: auto;
+}
 
 @media (min-width: 600px) {
   .projects-header-row {
@@ -257,7 +282,19 @@ main {
 }
 
 @media (min-width: 900px) {
-  header h1 {
-    font-size: 1.5rem;
+  .form-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .form-row label {
+    flex: 0 0 120px;
+    text-align: right;
+  }
+
+  .form-row input,
+  .form-row textarea {
+    flex: 1;
   }
 }

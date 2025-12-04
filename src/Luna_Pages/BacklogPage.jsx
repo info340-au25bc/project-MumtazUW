@@ -1,50 +1,37 @@
 // This is BacklogPage component
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import Header from "./header";
 import '../css/kanbanBacklog.css';
+import { getDatabase, ref, onValue, set as firebaseSet, push as firebasePush, set } from "firebase/database";
+
+
 // Modal from Bootstrap: https://getbootstrap.com/docs/4.0/components/modal/
-const TESTER_BACKLOG = [
-  {
-    id: 1,
-    feature: 'Planned Item Tester',
-    owner: 'Angel',
-    description: 'Planned Item Tester',
-    status: 'Planned',
-    priority: 'High (P1)',
-    dueDate: '2025-03-31'
-  },
-  {
-    id: 2,
-    feature: 'Planned Item Tester 2',
-    owner: 'Team',
-    description: 'Planned Item Tester 2',
-    status: 'Planned',
-    priority: 'Functional (P2)',
-    dueDate: '2025-04-05'
-  },
-  {
-    id: 3,
-    feature: 'In Progress Item Tester',
-    owner: 'Mumtaz',
-    description: 'IP Item Tester',
-    status: 'In Progress',
-    priority: 'Critical (P0)',
-    dueDate: '2025-03-20'
-  },
-  {
-    id: 4,
-    feature: 'Completed Item Tester 2',
-    owner: 'Angel',
-    description: 'Complete Item Tester',
-    status: 'Completed',
-    priority: 'High (P1)',
-    dueDate: '2025-03-01'
-  }
-];
 
 function BacklogPage() {
-  const [backlogItems, setBacklogItems] = useState(TESTER_BACKLOG);
+  const [backlogItems, setBacklogItems] = useState([]);
+
+  useEffect(() => {
+    const db = getDatabase();
+    const backlogRef = ref(db, "backlogItems");
+
+    const unregisterFunction = onValue(backlogRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data === null) {
+        setBacklogItems([]);
+      } else {
+        const keys = Object.keys(data);
+        const itemsArray = keys.map((key) => {
+          const oneItem = { ...data[key] };
+          oneItem.id = key;
+          return oneItem;
+        });
+        setBacklogItems(itemsArray);
+      }
+    });
+
+    return () => unregisterFunction();
+  }, []);
 
   const [formData, setFormData] = useState({
     feature: '',
@@ -54,7 +41,7 @@ function BacklogPage() {
     priority: '',
     dueDate: ''
   });
-
+  const [formError, setFormError] = useState('');
   const [editingItem, setEditingItem] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -71,17 +58,18 @@ function BacklogPage() {
   function handleEditSubmit(event) {
     event.preventDefault();
 
-    setBacklogItems(function(previousItems) {
-      return previousItems.map(function(item) {
-        if (item.id === editingItem.id) {
-          return editingItem;
-        } else {
-          return item;
-        }
-      });
-    });
+    const db = getDatabase();
+    const itemRef = ref(db, "backlogItems/" + editingItem.id);
 
-    closeEditModal();
+    const { id, ...itemData } = editingItem;
+
+    firebaseSet(itemRef, itemData)
+      .then(() => {
+        closeEditModal();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleEditChange(event) {
@@ -99,7 +87,7 @@ function BacklogPage() {
   function handleInputChange(event) {
     const fieldName = event.target.name;
     const fieldValue = event.target.value;
-
+    setFormError(''); //clears the error if they didn't fill the whole form before
     setFormData(function(prev) {
       return {
         ...prev,
@@ -107,7 +95,7 @@ function BacklogPage() {
       };
     });
   }
-  const[nextId, setNextId] = useState(1);
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -120,10 +108,13 @@ function BacklogPage() {
       formData.dueDate === ''
     ) {
       // maybe add a message here for errors?
+      setFormError('Please fill in all fields before adding an item to the backlog.');
       return;
     }
+
+    const db = getDatabase();
+    const backlogRef = ref(db, "backlogItems");
     const newItem = {
-      id: nextId,
       feature: formData.feature,
       owner: formData.owner,
       description: formData.description,
@@ -131,32 +122,33 @@ function BacklogPage() {
       priority: formData.priority,
       dueDate: formData.dueDate
     };
-      setBacklogItems(prev => prev.concat(newItem));
-      setNextId(prev => prev + 1); //temp till we can use firebase entirely
 
-    // Shows newest items first, typical with backlogs.
-    setBacklogItems(function(prevItems) {
-      return [newItem].concat(prevItems);
-    });
-
-    // this resets form
-    setFormData({
-      feature: '',
-      owner: '',
-      description: '',
-      status: '',
-      priority: '',
-      dueDate: ''
-    });
+    firebasePush(backlogRef, newItem)
+      .then(() => {
+        setFormData({
+          feature: '',
+          owner: '',
+          description: '',
+          status: '',
+          priority: '',
+          dueDate: ''
+        });
+        setFormError(''); // clears error after successful submission
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // Delete an item
   function deleteItem(id) {
-    setBacklogItems(function(prev) {
-      return prev.filter(function(item) {
-        return item.id !== id;
+    const db = getDatabase();
+    const itemRef = ref(db, "backlogItems/" + id);
+
+    firebaseSet(itemRef, null)
+      .catch((err) => {
+        console.log(err);
       });
-    });
   }
 
   const plannedItems = backlogItems.filter(function(item) {
@@ -186,10 +178,14 @@ function BacklogPage() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/projects">Projects</NavLink>
+                <NavLink to="/projects">
+                  Projects
+                </NavLink>
               </li>
               <li>
-                <NavLink to="/roadmap">Roadmap</NavLink>
+                <NavLink to="/roadmap">
+                  Roadmap
+                </NavLink>
               </li>
               <li>
                 <NavLink to="/backlog" className="active">
@@ -212,6 +208,7 @@ function BacklogPage() {
                   Feature name
                 </label>
                 <input
+                  aria-label="Feature name"
                   type="text"
                   id="feature"
                   name="feature"
@@ -226,6 +223,7 @@ function BacklogPage() {
                   Owner
                 </label>
                 <input
+                  aria-label="Owner"
                   type="text"
                   id="owner"
                   name="owner"
@@ -240,6 +238,7 @@ function BacklogPage() {
                   Description
                 </label>
                 <input
+                  aria-label="Description"
                   type="text"
                   id="description"
                   name="description"
@@ -254,6 +253,7 @@ function BacklogPage() {
                   Status
                 </label>
                 <select
+                  aria-label="Status"
                   id="status"
                   name="status"
                   value={formData.status}
@@ -271,6 +271,7 @@ function BacklogPage() {
                   Priority
                 </label>
                 <select
+                  aria-label="Priority Level"
                   id="priority"
                   name="priority"
                   value={formData.priority}
@@ -289,6 +290,7 @@ function BacklogPage() {
                   Due date
                 </label>
                 <input
+                  aria-label="Due date"
                   type="date"
                   id="dueDate"
                   name="dueDate"
@@ -351,10 +353,14 @@ function BacklogPage() {
                         style={{ cursor: "pointer" }}
                       >
                         <h3 className="card-header">{item.feature}</h3>
+                        <p className="card-subtitle">
+                          <span className="card-priority">{item.priority}</span>
+                          <span className="card-owner"> Owner: {item.owner}</span>
+                        </p>
                         <p className="card-content">
-                          {item.description}{' '}
-                          <strong>Owner:</strong> {item.owner}{' '}
-                          <strong>Priority:</strong> {item.priority}{' '}
+                          {item.description}
+                        </p>
+                        <p className="card-due">
                           <strong>Due:</strong> {item.dueDate}
                         </p>
                       </div>
@@ -378,10 +384,14 @@ function BacklogPage() {
                         style={{ cursor: "pointer" }}
                       >
                         <h3 className="card-header">{item.feature}</h3>
+                        <p className="card-subtitle">
+                          <span className="card-priority">{item.priority}</span>
+                          <span className="card-owner"> Owner: {item.owner}</span>
+                        </p>
                         <p className="card-content">
-                          {item.description}{' '}
-                          <strong>Owner:</strong> {item.owner}{' '}
-                          <strong>Priority:</strong> {item.priority}{' '}
+                          {item.description}
+                        </p>
+                        <p className="card-due">
                           <strong>Due:</strong> {item.dueDate}
                         </p>
                       </div>
@@ -405,10 +415,14 @@ function BacklogPage() {
                         style={{ cursor: "pointer" }}
                       >
                         <h3 className="card-header">{item.feature}</h3>
+                        <p className="card-subtitle">
+                          <span className="card-priority">{item.priority}</span>
+                          <span className="card-owner"> Owner: {item.owner}</span>
+                        </p>
                         <p className="card-content">
-                          {item.description}{' '}
-                          <strong>Owner:</strong> {item.owner}{' '}
-                          <strong>Priority:</strong> {item.priority}{' '}
+                          {item.description}
+                        </p>
+                        <p className="card-due">
                           <strong>Due:</strong> {item.dueDate}
                         </p>
                       </div>
@@ -423,7 +437,7 @@ function BacklogPage() {
             <div
               className="modal fade show"
               style={{ display: "block" }}
-              tabIndex="-1"
+              tabIndex={-1}
             >
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
@@ -438,12 +452,12 @@ function BacklogPage() {
                       <span>&times;</span>
                     </button>
                   </div>
-
                   <form onSubmit={handleEditSubmit}>
                     <div className="modal-body">
                       <div className="form-group mb-2">
                         <label htmlFor="edit-feature">Feature name</label>
                         <input
+                          aria-label="Edit Feature"
                           id="edit-feature"
                           type="text"
                           name="feature"
@@ -457,6 +471,7 @@ function BacklogPage() {
                       <div className="form-group mb-2">
                         <label htmlFor="edit-owner">Owner</label>
                         <input
+                          aria-label="Edit Owner"
                           id="edit-owner"
                           type="text"
                           name="owner"
@@ -482,6 +497,7 @@ function BacklogPage() {
                       <div className="form-group mb-2">
                         <label htmlFor="edit-status">Status</label>
                         <select
+                          aria-label="Edit Status"
                           id="edit-status"
                           name="status"
                           value={editingItem.status}
@@ -497,6 +513,7 @@ function BacklogPage() {
                       <div className="form-group mb-2">
                         <label htmlFor="edit-priority">Priority</label>
                         <select
+                          aria-label="Edit Priority"
                           id="edit-priority"
                           name="priority"
                           value={editingItem.priority}
@@ -513,6 +530,7 @@ function BacklogPage() {
                       <div className="form-group mb-2">
                         <label htmlFor="edit-dueDate">Due date</label>
                         <input
+                          aria-label="Edit Due date"
                           id="edit-dueDate"
                           type="date"
                           name="dueDate"
@@ -522,7 +540,6 @@ function BacklogPage() {
                         />
                       </div>
                     </div>
-
                     <div className="modal-footer">
                       <button
                         type="button"

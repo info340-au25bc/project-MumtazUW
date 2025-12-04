@@ -332,6 +332,27 @@ body {
 .BacklogPage .card-actions .delete-btn:hover {
   background-color: #ff1f1f;
 }
+.BacklogPage .card-subtitle {
+  padding: 0 10px 0.25rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.BacklogPage .card-priority {
+  font-weight: 600;
+  color: #26bbe4;
+}
+
+.BacklogPage .card-owner {
+  margin-left: 0.25rem;
+}
+
+.BacklogPage .card-due {
+  padding: 0 10px 0.5rem;
+  font-size: 0.85rem;
+  color: #555;
+}
+
 
 /* ---- Responsive + Mobile first ---- */
 @media (min-width: 598px) {
