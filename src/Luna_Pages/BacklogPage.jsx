@@ -1,15 +1,23 @@
-// This is BacklogPage component
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import Header from "./header";
-import '../css/kanbanBacklog.css';
+import '../css/global.css';
 import { getDatabase, ref, onValue, set as firebaseSet, push as firebasePush, set } from "firebase/database";
-
-
-// Modal from Bootstrap: https://getbootstrap.com/docs/4.0/components/modal/
 
 function BacklogPage() {
   const [backlogItems, setBacklogItems] = useState([]);
+  const [formData, setFormData] = useState({
+    feature: '',
+    owner: '',
+    description: '',
+    status: '',
+    priority: '',
+    dueDate: ''
+  });
+  const [formError, setFormError] = useState('');
+  const [editingItem, setEditingItem] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [formKey, setFormKey] = useState(0);
 
   useEffect(() => {
     const db = getDatabase();
@@ -33,17 +41,6 @@ function BacklogPage() {
     return () => unregisterFunction();
   }, []);
 
-  const [formData, setFormData] = useState({
-    feature: '',
-    owner: '',
-    description: '',
-    status: '',
-    priority: '',
-    dueDate: ''
-  });
-  const [formError, setFormError] = useState('');
-  const [editingItem, setEditingItem] = useState(null);
-  const [showModal, setShowModal] = useState(false);
 
   function openEditModal(item) {
     setEditingItem(item);
@@ -87,7 +84,7 @@ function BacklogPage() {
   function handleInputChange(event) {
     const fieldName = event.target.name;
     const fieldValue = event.target.value;
-    setFormError(''); //clears the error if they didn't fill the whole form before
+    setFormError('');
     setFormData(function(prev) {
       return {
         ...prev,
@@ -107,7 +104,6 @@ function BacklogPage() {
       formData.priority === '' ||
       formData.dueDate === ''
     ) {
-      // maybe add a message here for errors?
       setFormError('Please fill in all fields before adding an item to the backlog.');
       return;
     }
@@ -133,14 +129,14 @@ function BacklogPage() {
           priority: '',
           dueDate: ''
         });
-        setFormError(''); // clears error after successful submission
+        setFormError('');
+        setFormKey(prev => prev + 1);
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  // Delete an item
   function deleteItem(id) {
     const db = getDatabase();
     const itemRef = ref(db, "backlogItems/" + id);
@@ -167,7 +163,6 @@ function BacklogPage() {
     <div className="BacklogPage">
       <Header />
       <div className="backlog-container">
-        {/* Nav/Sidebar */}
         <aside className="sidebar">
           <h2>Navigation</h2>
           <nav>
@@ -199,9 +194,8 @@ function BacklogPage() {
           </nav>
         </aside>
 
-        <main className="backlog-main mt-5 pt-5">
-          {/* Backlog Form */}
-          <form id="backlogForm" onSubmit={handleSubmit}>
+        <main className="backlog-main">
+          <form id="backlogForm" key={formKey} onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="feature" className="sr-only">
@@ -303,7 +297,6 @@ function BacklogPage() {
             </div>
           </form>
 
-          {/* Filters row - Static right now!! */}
           <div className="filters-bar">
             <div className="filter-group">
               <label htmlFor="filterPriority">Priority:</label>
@@ -335,12 +328,10 @@ function BacklogPage() {
             </div>
           </div>
 
-          {/* The Kanban board */}
           <div className="kanban-container">
             <div className="kanban-columns">
-              {/* Planned Col */}
               <div className="column">
-                <h2>Planned</h2>
+                <h3>Planned</h3>
                 <div className="card-container" id="plannedContainer">
                   {plannedItems.map(function(item) {
                     return (
@@ -352,7 +343,7 @@ function BacklogPage() {
                         }}
                         style={{ cursor: "pointer" }}
                       >
-                        <h3 className="card-header">{item.feature}</h3>
+                        <h4 className="card-header">{item.feature}</h4>
                         <p className="card-subtitle">
                           <span className="card-priority">{item.priority}</span>
                           <span className="card-owner"> Owner: {item.owner}</span>
@@ -369,9 +360,8 @@ function BacklogPage() {
                 </div>
               </div>
 
-              {/* In Progress Col */}
               <div className="column">
-                <h2>In Progress</h2>
+                <h3>In Progress</h3>
                 <div className="card-container" id="progressContainer">
                   {inProgressItems.map(function(item) {
                     return (
@@ -383,7 +373,7 @@ function BacklogPage() {
                         }}
                         style={{ cursor: "pointer" }}
                       >
-                        <h3 className="card-header">{item.feature}</h3>
+                        <h4 className="card-header">{item.feature}</h4>
                         <p className="card-subtitle">
                           <span className="card-priority">{item.priority}</span>
                           <span className="card-owner"> Owner: {item.owner}</span>
@@ -400,9 +390,8 @@ function BacklogPage() {
                 </div>
               </div>
 
-              {/* Completed Col */}
               <div className="column">
-                <h2>Completed</h2>
+                <h3>Completed</h3>
                 <div className="card-container" id="completedContainer">
                   {completedItems.map(function(item) {
                     return (
@@ -414,7 +403,7 @@ function BacklogPage() {
                         }}
                         style={{ cursor: "pointer" }}
                       >
-                        <h3 className="card-header">{item.feature}</h3>
+                        <h4 className="card-header">{item.feature}</h4>
                         <p className="card-subtitle">
                           <span className="card-priority">{item.priority}</span>
                           <span className="card-owner"> Owner: {item.owner}</span>

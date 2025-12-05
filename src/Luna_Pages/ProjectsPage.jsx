@@ -1,42 +1,23 @@
 import React from 'react';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import '../css/projectsPage.css';
+import Header from "./header";
+import '../css/global.css';
 
 import { getDatabase, ref, push, set, update, onValue } from "firebase/database";
 import { db } from "../main.jsx";
 
 // Modal from Bootstrap: https://getbootstrap.com/docs/4.0/components/modal/
-const TESTPROJECTS = [
-  {
-    id: 1,
-    title: "Project 1",
-    description: "Doloremque commodi unde eaque! Et natus dolorum corrupti ut numquam.",
-    image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
-  },
-  {
-    id: 2,
-    title: "Project 2",
-    description: "Odio praesentium cum nemo nesciunt architecto, quam voluptate porro inventore.",
-    image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
-  },
-  {
-    id: 3,
-    title: "Project 3",
-    description: "Dignissimos consequuntur maxime harum debitis ratione, culpa iure pariatur quaerat?",
-    image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
-  },
-  {
-    id: 4,
-    title: "Project 4",
-    description: "Odit id earum commodi tempora voluptatum mollitia dolorum, perspiciatis nulla!",
-    image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
-  }
-];
+
+// tester photo: image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3" 
 
 function ProjectsCard(props){
   return (
-    <div className="card">
+    <div
+      className="card"
+      onClick={props.onClick}
+      style={{ cursor: "pointer" }}
+    >
       <img src={props.image} alt="abstract project art" />
       <div className="card-text">
         <h3>{props.title}</h3>
@@ -45,6 +26,7 @@ function ProjectsCard(props){
     </div>
   );
 }
+
 
 function ProjectsPage() {
   const [projects, setProjects] = useState([]);
@@ -55,16 +37,19 @@ function ProjectsPage() {
       const data = snapshot.val();
       if (data) {
         const loadedProjects = Object.keys(data).map(key => ({
-          id: key,
-          ...data[key]
+          ...data[key],
+          id: key
         }));
         setProjects(loadedProjects);
       }
     });
-  }, [db]);
+  }, []);
 
   const [newProject, setNewProject] = useState({ title: "", description: "", image: "" });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingProject, setEditingProject] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
 
   function handleInput(event) {
     const { name, value } = event.target;
@@ -78,7 +63,7 @@ function ProjectsPage() {
     const newProjectObject = {
       id: projects.length + 1,
       ...newProject,
-      image: newProject.image || "https://semantic-ui.com/images/wireframe/image.png"
+      image: newProject.image || "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
     };
     const projectsRef = ref(db, 'projects');
     const newProjectRef = push(projectsRef);  
@@ -86,18 +71,56 @@ function ProjectsPage() {
     setNewProject({ title: "", description: "", image: "" });
     setIsModalOpen(false); 
   }
+  function openEditModal(project) {
+    setEditingProject(project);
+    setIsEditModalOpen(true);
+  }
+
+  function closeEditModal() {
+    setEditingProject(null);
+    setIsEditModalOpen(false);
+  }
+function handleEditChange(event) {
+  const { name, value } = event.target;
+  setEditingProject(prev => ({
+    ...prev,
+    [name]: value
+  }));
+}
+
+  function handleEditSubmit(event) {
+    event.preventDefault();
+    if (!editingProject) return;
+
+    const projectRef = ref(db, "projects/" + editingProject.id);
+    const { id, ...projectData } = editingProject;
+
+    set(projectRef, projectData)
+      .then(() => {
+        closeEditModal();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  function handleDeleteProject() {
+    if (!editingProject) return;
+
+    const projectRef = ref(db, "projects/" + editingProject.id);
+    set(projectRef, null)
+      .then(() => {
+        closeEditModal();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
   return (
     <div className="projects-page">
       {/* Header */}
-      <header>
-        <div className="header-left">
-          <h1>Projects</h1>
-        </div>
-        <div className="profile">
-          <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" alt="Profile" />
-        </div>
-      </header>
+      <Header />
 
       <div className="container">
         {/* Sidebar */}
@@ -221,16 +244,110 @@ function ProjectsPage() {
           )}
 
           {/* Cards */}
-          <section className="card-container">
-            {projects.map(project => (
-              <ProjectsCard
-                key={project.id}
-                image={project.image}
-                title={project.title}
-                description={project.description}
-              />
-            ))}
+        <section className="card-container">
+          {projects.map(project => (
+            <ProjectsCard
+              key={project.id}
+              image={project.image}
+              title={project.title}
+              description={project.description}
+              onClick={() => openEditModal(project)}
+            />
+          ))}
           </section>
+          {/* Editing Modal */}
+          {isEditModalOpen && editingProject && (
+            <div
+              className="modal fade show project-modal"
+              style={{ display: "block", backgroundColor: "rgba(0,0,0,0.6)" }}
+              tabIndex="-1"
+              role="dialog"
+              aria-modal="true"
+            >
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title">Edit Project</h5>
+                    <button
+                      type="button"
+                      className="buttonProj"
+                      aria-label="Close"
+                      onClick={closeEditModal}
+                      style={{ marginLeft: "auto" }}
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <form className="projects-form" onSubmit={handleEditSubmit}>
+                    <div className="modal-body">
+                      <div className="form-group mb-2">
+                        <label htmlFor="edit-project-title">Title</label>
+                        <input
+                          id="edit-project-title"
+                          aria-label="Edit Project Title"
+                          name="title"
+                          type="text"
+                          className="form-control"
+                          placeholder="Enter Project Title"
+                          value={editingProject.title || ""}
+                          onChange={handleEditChange}
+                        />
+                      </div>
+
+                      <div className="form-group mb-2">
+                        <label htmlFor="edit-project-description">Description</label>
+                        <textarea
+                          id="edit-project-description"
+                          aria-label="Edit Project Description"
+                          name="description"
+                          className="form-control"
+                          placeholder="Describe your project"
+                          value={editingProject.description || ""}
+                          onChange={handleEditChange}
+                        />
+                      </div>
+
+                      <div className="form-group mb-2">
+                        <label htmlFor="edit-project-image">Image URL</label>
+                        <input
+                          id="edit-project-image"
+                          aria-label="Edit Project Image (URL)"
+                          name="image"
+                          type="text"
+                          className="form-control"
+                          placeholder="https://example.com/image.png"
+                          value={editingProject.image || ""}
+                          onChange={handleEditChange}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="modal-footer">
+                      <button
+                        type="button"
+                        className="buttonProj"
+                        onClick={handleDeleteProject}
+                      >
+                        Delete
+                      </button>
+                      <button
+                        type="button"
+                        className="buttonProj"
+                        onClick={closeEditModal}
+                      >
+                        Cancel
+                      </button>
+                      <button type="submit" className="buttonProj">
+                        Save changes
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          )}
+
         </main>
       </div>
 

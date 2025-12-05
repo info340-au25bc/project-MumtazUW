@@ -2,8 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+
 import { initializeApp } from 'firebase/app';
-import { getDatabase} from 'firebase/database';
+import { getDatabase } from 'firebase/database';
+import { getAuth } from 'firebase/auth';
+
 
 
 const firebaseConfig = {
@@ -16,9 +19,10 @@ const firebaseConfig = {
   appId: "1:696112293840:web:2baf89376ea6166e8fbbd5"
 };
 
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 export const db = getDatabase(app);
+export const auth = getAuth(app);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
