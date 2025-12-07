@@ -1,0 +1,684 @@
+/* Hover Card Effect: https://stackoverflow.com/questions/51184792/fluent-design-card-lift-effect */
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f3f4f6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 200px;
+  overflow-y: scroll;
+}
+
+header,
+.backlog-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px; 
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+header h1,
+.backlog-header h1 {
+  color: #26bbe4;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* Hamburger menu icon */
+.hamburger {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+}
+
+.hamburger i {
+  font-size: 28px;
+  color: #26bbe4;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.hamburger:hover i {
+  transform: scale(1.1);
+  color: #0b6780;
+}
+
+
+.backlog-header i,
+.backlog-header .hamburger i {
+  color: #26bbe4;
+  transition: transform 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+
+.backlog-header i:hover,
+.backlog-header .hamburger:hover i {
+  transform: scale(1.1);
+  color: #0b6780;
+}
+
+/* Profile image */
+.profile img,
+.backlog-header .profile img,
+.BacklogPage .profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
+}
+
+
+.add-project-btn,
+.buttonProj {
+  background-color: #26bbe4;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 300px;
+  font-weight: 500;
+  transition: background 0.2s;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.buttonProj:hover,
+.add-project-btn:hover {
+  background-color: #0b6780;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  margin-top: 60px;
+  width: 100%;
+  position: relative;
+}
+
+/* Projects sidebar */
+.sidebar {
+  display: none;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  width: 220px;
+  padding-top: 15px;
+}
+
+.sidebar h2 {
+  font-size: 0.9em;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 10px 20px;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  margin-top: 10px;
+  padding-left: 0;
+}
+
+.sidebar nav li {
+  margin-bottom: 5px;
+}
+
+.sidebar nav a {
+  display: block;
+  color: #222;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-left: 4px solid transparent;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+  background-color: #e6f1fb;
+  border-left-color: #26bbe4;
+  color: #26bbe4;
+}
+
+main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-left: 0;
+  padding: 20px 16px;
+}
+
+.projects-header-row {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 80px;
+}
+
+.projects-header-row h2 {
+  color: #000;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.add-project-btn {
+  align-self: flex-start;
+  font-size: 0.95rem;
+  padding: 9px 16px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Base card styling  */
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 1px 3px rgba(0,0,0,0.23);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 100%;
+  max-width: 600px;
+  margin: 0.75rem;
+}
+
+.card:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-1px);
+}
+
+/* Project card image/text */
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-text {
+  padding: 1rem 1rem 1.25rem;
+  color: #1a1a1a;
+}
+
+.card-text h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.card-text p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* Projects form */
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.form-row label {
+  flex: 0 0 120px;
+  font-weight: bold;
+}
+
+.form-row input,
+.form-row textarea {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  color: #26bbe4;
+}
+
+.project-modal .modal-header .close {
+  margin-left: auto;
+}
+
+
+.BacklogPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f3f4f6;
+  padding-top: 60px;
+}
+
+.backlog-container {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Backlog sidebar */
+.BacklogPage .sidebar {
+  display: none;
+  width: 220px;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  padding-top: 15px;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 60px;
+}
+
+.BacklogPage .sidebar h2 {
+  font-size: 0.9em;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 10px 20px;
+}
+
+.BacklogPage .sidebar nav ul {
+  list-style: none;
+  margin-top: 10px;
+}
+
+.BacklogPage .sidebar nav li {
+  margin-bottom: 5px;
+}
+
+.BacklogPage .sidebar nav a {
+  display: block;
+  color: #222;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-left: 4px solid transparent;
+  transition: all 0.2s;
+}
+
+.BacklogPage .sidebar nav a:hover,
+.BacklogPage .sidebar nav a.active {
+  background-color: #e6f1fb;
+  border-left-color: #26bbe4;
+  color: #26bbe4;
+}
+
+/* Backlog main */
+.backlog-main {
+  padding: 25px;
+  flex: 1;
+  overflow: visible;
+}
+
+/* Backlog form and modal */
+.backlog-main form {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 0.75rem;
+  border-radius: 11px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.backlog-main .form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.backlog-main .form-row input,
+.backlog-main .form-row select,
+.backlog-main .form-row button {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.backlog-main input,
+.backlog-main select {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin: 0.25rem 0;
+}
+
+.backlog-main button {
+  background-color: #26bbe4;
+  color: white;
+  border: none;
+  transition: 0.2s;
+  padding: 0.6rem 0.6rem;
+  border-radius: 6px;
+  margin-left: 0;
+  cursor: pointer;
+}
+
+.backlog-main button:hover {
+  background-color: #0b6780;
+}
+
+/* Filters bar */
+.BacklogPage .filters-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  gap: 0.75rem;
+}
+
+.BacklogPage .filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.BacklogPage .filter-group label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.BacklogPage .filters-bar select {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  border: 1px solid #e5dfdf;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  transition: border 0.2s, background 0.2s;
+}
+
+.BacklogPage .filters-bar select:hover {
+  background-color: #f0f8ff;
+  border-color: #26bbe4;
+}
+
+/* Kanban board */
+.BacklogPage .kanban-container {
+  background-color: #fff;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  padding-right: 2rem;
+  border-radius: 10px;
+  
+}
+
+.BacklogPage .kanban-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.BacklogPage .column {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  padding: 0.75rem;
+}
+
+.BacklogPage .kanban-columns .column h3 {
+  text-align: center;
+  background-color: #26bbe4;
+  color: white;
+  padding: 0.35rem;
+  border-radius: 8px;
+  margin-top: 0;
+}
+
+.BacklogPage .card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+/* Backlog cards*/
+.BacklogPage .card {
+  width: 100%;
+  margin: 0.75rem 0;
+  padding: 1rem;
+  min-height: 0;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 1px 3px rgba(0,0,0,0.23);
+  border-radius: 10px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.BacklogPage .card-header {
+  color: #383737;
+  padding: 10px;
+}
+
+.BacklogPage .card-content {
+  padding: 0.5rem;
+  color: black;
+}
+
+.BacklogPage .card:hover {
+  background-color: #e0e0e0;
+  
+}
+
+/* Card actions */
+.BacklogPage .card-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+}
+
+.BacklogPage .card-actions button {
+  flex: 1;
+  min-width: 100px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.BacklogPage .card-actions button:hover {
+  background-color: #e0e0e0;
+}
+
+.BacklogPage .card-actions .delete-btn {
+  background-color: #ff4d4f;
+  color: white;
+  border-color: #ff4d4f;
+}
+
+.BacklogPage .card-actions .delete-btn:hover {
+  background-color: #ff1f1f;
+}
+
+.BacklogPage .card-subtitle {
+  padding: 0 10px 0.25rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.BacklogPage .card-priority {
+  font-weight: 600;
+  color: #26bbe4;
+}
+
+.BacklogPage .card-owner {
+  margin-left: 0.25rem;
+}
+
+.BacklogPage .card-due {
+  padding: 0 10px 0.5rem;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+
+@media (min-width: 598px) {
+  .BacklogPage .filters-bar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .backlog-main form {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 600px) {
+  .projects-header-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 768px) {
+  .BacklogPage .sidebar {
+    display: block;
+  }
+
+  .backlog-main {
+    margin-left: 220px;
+  }
+
+  .BacklogPage .kanban-columns {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  /* Projects sidebar  */
+  .sidebar {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 60px;
+  }
+
+  main {
+    margin-left: 220px;
+    padding: 25px;
+  }
+
+  header h1,
+  .backlog-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .card {
+    flex: 0 0 280px;
+    max-width: 280px;
+  }
+}
+
+@media (min-width: 900px) {
+  .form-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .form-row label {
+    flex: 0 0 120px;
+    text-align: right;
+  }
+
+  .form-row input,
+  .form-row textarea {
+    flex: 1;
+  }
+
+  /* Backlog form rows */
+  .BacklogPage .form-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .BacklogPage .form-row input,
+  .BacklogPage .form-row select {
+    flex: 0 1 150px;
+    margin: 0;
+  }
+
+  .BacklogPage .form-row input[type="text"],
+  .BacklogPage .form-row input[type="date"] {
+    width: 160px;
+  }
+
+  .BacklogPage .form-row select {
+    width: 130px;
+  }
+
+  .BacklogPage .form-row button {
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+    width: auto;
+  }
+
+  .BacklogPage .board {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .BacklogPage .column {
+    flex: 1;
+    min-width: 280px;
+    max-width: 33%;
+  }
+}
