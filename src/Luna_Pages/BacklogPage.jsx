@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import Header from "./header";
-import '../css/global.css';
+import '../css/kanbanBacklog.css';
+//import '../css/global.css';
 import { getDatabase, ref, onValue, set as firebaseSet, push as firebasePush, set } from "firebase/database";
 
 function BacklogPage() {

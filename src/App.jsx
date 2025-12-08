@@ -6,7 +6,7 @@ import BacklogPage from './Luna_Pages/BacklogPage';
 import RoadmapPage from './Luna_Pages/RoadmapPage';
 import NotificationsPage from './Luna_Pages/NotificationsPage';
 import SignupPage from './Luna_Pages/SignupPage';
-import ProfilePage from "./Luna_Pages/ProfilePage.jsx";
+//import ProfilePage from "./Luna_Pages/ProfilePage.jsx";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <Route path="/roadmap" element={<RoadmapPage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        {/* <Route path="/profile" element={<ProfilePage />} /> */}
       </Routes>
     </div>
   );

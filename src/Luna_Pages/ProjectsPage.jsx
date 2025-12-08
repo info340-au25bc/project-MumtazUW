@@ -2,14 +2,15 @@ import React from 'react';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Header from "./header";
-import '../css/global.css';
+import '../css/projectsPage.css';
+//import '../css/global.css';
 
 import { getDatabase, ref, push, set, update, onValue } from "firebase/database";
 import { db } from "../main.jsx";
 
 // Modal from Bootstrap: https://getbootstrap.com/docs/4.0/components/modal/
 
-// tester photo: image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3" 
+// tester photo: image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
 
 function ProjectsCard(props){
   return (
@@ -66,10 +67,10 @@ function ProjectsPage() {
       image: newProject.image || "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
     };
     const projectsRef = ref(db, 'projects');
-    const newProjectRef = push(projectsRef);  
+    const newProjectRef = push(projectsRef);
     set(newProjectRef, newProjectObject);
     setNewProject({ title: "", description: "", image: "" });
-    setIsModalOpen(false); 
+    setIsModalOpen(false);
   }
   function openEditModal(project) {
     setEditingProject(project);
