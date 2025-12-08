@@ -237,3 +237,99 @@
   border-top: 1px solid #eee;
   margin-top: auto;
 }
+
+/* Mobile (≥320px) and <600px */
+@media (min-width: 320px) and (max-width: 599px) {
+  /* Sidebar becomes top nav */
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    padding-top: 0;
+  }
+
+  .sidebar h2 {
+    margin: 10px;
+  }
+
+  .sidebar nav a {
+    padding: 10px;
+    border-left: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* Main content adjustments */
+  .roadmap-main {
+    margin-left: 0;
+    margin-top: 120px; /* leave space for fixed header */
+    padding: 20px 10px;
+  }
+
+  .roadmap-content {
+    min-width: 100%;
+    padding: 20px 10px;
+    overflow-x: hidden; /* prevent horizontal scroll */
+    margin-top: 300px;
+  }
+
+  .roadmap-header {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .phase-label-spacer {
+    display: none;
+  }
+
+  .months-container {
+    display: none; /* hide month timeline for mobile */
+  }
+
+  .phase-row {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  .phase-label-container {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .phase-label {
+    font-size: 14px;
+    padding: 12px 10px;
+    text-align: left;
+  }
+
+  .tasks-container {
+    width: 100%;
+    max-width: 100%;
+    position: static; /* allow tasks to stack */
+  }
+
+  .task-row {
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .task-bar {
+    position: relative; /* stack tasks vertically */
+    left: 0 !important;
+    width: 100% !important;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .footer {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  /* Modal adjustments for mobile */
+  .modal-dialog {
+    width: 95%;
+    margin: 20px auto;
+  }
+}

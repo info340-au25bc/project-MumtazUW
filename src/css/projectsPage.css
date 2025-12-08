@@ -1,17 +1,14 @@
-/** {
-  box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
-  margin: 0;
-  padding: 0;
-}*/
-
 body {
   background-color: #f3f4f6;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  margin: 0;
+  padding-top: 60px; /* ensures content starts BELOW fixed header */
+  overflow-x: hidden; /* prevents ALL side scrolling */
 }
 
+/* Header stays fixed */
 header {
   position: fixed;
   top: 0;
@@ -25,134 +22,40 @@ header {
   justify-content: space-between;
   padding: 0 16px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  z-index: 1000;
 }
 
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-header h1 {
-  color: #26bbe4;
-  font-size: 1.2rem;
-  font-weight: 600;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-}
-
-.hamburger {
-  background: none;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 6px;
-}
-
-.hamburger i {
-  font-size: 28px;
-  color: #26bbe4;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.hamburger:hover i {
-  transform: scale(1.1);
-  color: #0b6780;
-}
-
-.profile img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  object-fit: cover;
-}
-
-button {
-  background-color: #26bbe4;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 540px;
-  font-weight: 500;
-  transition: background 0.2s;
-  cursor: pointer;
-  font-size: 0.9rem;
-
-}
-
-button:hover {
-  background-color: #0b6780;
-}
-
+/* Container layout */
 .container {
   display: flex;
   flex: 1;
   min-height: 0;
-  margin-top: 60px;
   width: 100%;
-  position: relative;
+  margin-top: 0;
+  padding-top: 20px; /* ensures cards never slide under the header */
+  overflow-x: hidden; /* EXTRA safety: no horizontal scroll */
 }
-/*nav*/
+
 .sidebar {
   display: none;
   background-color: #fff;
   border-right: 1px solid #ddd;
   width: 220px;
   padding-top: 15px;
-}
-
-.sidebar h2 {
-  font-size: 0.9em;
-  color: #555;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 10px 20px;
-}
-
-.sidebar nav ul {
-  list-style: none;
-  margin-top: 10px;
-  padding-left: 0;
-}
-
-.sidebar nav li {
-  margin-bottom: 5px;
-}
-
-.sidebar nav a {
-  display: block;
-  color: #222;
-  text-decoration: none;
-  padding: 10px 20px;
-  border-left: 4px solid transparent;
-  transition: all 0.2s;
-  font-size: 0.95rem;
-}
-
-.sidebar nav a:hover,
-.sidebar nav a.active {
-  background-color: #e6f1fb;
-  border-left-color: #26bbe4;
-  color: #26bbe4;
+  flex-shrink: 0;
 }
 
 main {
   flex: 1;
-  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-left: 0;
-  padding: 20px 16px;
+  padding: 20px;
+  min-width: 0;
+  margin-top: 700px; /* ensures content clears header fully */
 }
 
+/* Project header row */
 .projects-header-row {
   background-color: #fff;
   border-radius: 10px;
@@ -161,29 +64,48 @@ main {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  margin-top: 220px;
+  margin-top: 0;
 }
 
-.projects-header-row h2 {
-  color: #000;
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin: 0;
-  line-height: 1.2;
-}
-
+/* ------------------------------------------------------- */
+/*  ADD BUTTON — restored to original sizing + behavior     */
+/* ------------------------------------------------------- */
 .add-project-btn {
-  align-self: flex-start;
+  align-self: flex-start; /* stays on the left on mobile */
   font-size: 0.95rem;
   padding: 9px 16px;
+  background-color: #26bbe4;
+  color: white;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+  margin-top: 4px;
 }
 
+.add-project-btn:hover {
+  background-color: #0b6780;
+}
+
+/* Desktop alignment */
+@media (min-width: 600px) {
+  .add-project-btn {
+    align-self: center; /* aligns perfectly inside the header row */
+  }
+}
+/* ------------------------------------------------------- */
+
+
+/* Card container */
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
+  overflow-x: hidden; /* prevents horizontal scroll caused by cards */
 }
 
+/* Card — RESTORED to original size */
 .card {
   background-color: white;
   border-radius: 10px;
@@ -191,14 +113,19 @@ main {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+
+  /* ORIGINAL sizing restored */
   flex: 1 1 100%;
   max-width: 600px;
+
   margin: 0.75rem;
 }
+
 .card:hover {
   background-color: #e0e0e0;
   transform: translate3d(0px, -1px, 0px);
 }
+
 .card img {
   width: 100%;
   height: 180px;
@@ -206,59 +133,26 @@ main {
   display: block;
 }
 
-.card-text {
-  padding: 1rem 1rem 1.25rem;
-  color: #1a1a1a;
+footer {
+  text-align: center;
+  padding: 12px 0;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  flex-shrink: 0;
 }
 
-.card-text h3 {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #000;
-  margin-bottom: 0.5rem;
-}
-
-.card-text p {
-  margin: 0;
-  font-size: 0.95rem;
-  color: #444;
-}
-.form-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.form-row label {
-  flex: 0 0 120px;
-  font-weight: bold;
-}
-
-.form-row input,
-.form-row textarea {
-  flex: 1;
-  padding: 0.5rem;
-}
-
-.modal-content h2 {
-  margin-top: 0;
-  color: #26bbe4;
-}
-.project-modal .modal-header .close {
-  margin-left: auto;
-}
-
+/* Tablet ≥ 600px */
 @media (min-width: 600px) {
   .projects-header-row {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
   }
-
-
 }
 
+/* Tablet / small desktop ≥ 768px */
 @media (min-width: 768px) {
+
   .sidebar {
     display: block;
     position: fixed;
@@ -269,18 +163,17 @@ main {
   main {
     margin-left: 220px;
     padding: 25px;
+    margin-top: 20px;
   }
 
-  header h1 {
-    font-size: 1.3rem;
-  }
-
+  /* RESTORED — do NOT enlarge cards at larger screens */
   .card {
-    flex: 0 0 280px;
-    max-width: 280px;
+    flex: 1 1 calc(33.33% - 1.5rem);
+    max-width: 280px; /* but NOT larger than this */
   }
 }
 
+/* Larger desktop ≥ 900px */
 @media (min-width: 900px) {
   .form-row {
     flex-direction: row;

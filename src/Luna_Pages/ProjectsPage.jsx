@@ -154,7 +154,7 @@ function handleEditChange(event) {
             <h2>Your Projects</h2>
             <button className="add-project-btn" onClick={() => setIsModalOpen(true)}
             >
-              + Add Project
+               Add Project
             </button>
           </section>
 
