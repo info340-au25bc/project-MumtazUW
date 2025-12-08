@@ -176,6 +176,7 @@
 
 .phase-label-container {
   flex-shrink: 0;
+  width: 220px;
 }
 
 .phase-label {
