@@ -1,10 +1,10 @@
 /* Hover Card Effect: https://stackoverflow.com/questions/51184792/fluent-design-card-lift-effect */
-* {
+/** {
   box-sizing: border-box;
   font-family: "Segoe UI", sans-serif;
   margin: 0;
   padding: 0;
-}
+}*/
 
 body {
   background-color: #f3f4f6;
