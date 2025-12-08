@@ -4,11 +4,10 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0;
-  padding-top: 60px; /* ensures content starts BELOW fixed header */
-  overflow-x: hidden; /* prevents ALL side scrolling */
+  padding-top: 60px;
+  overflow-x: hidden;
 }
 
-/* Header stays fixed */
 header {
   position: fixed;
   top: 0;
@@ -25,15 +24,14 @@ header {
   z-index: 1000;
 }
 
-/* Container layout */
 .container {
   display: flex;
   flex: 1;
   min-height: 0;
   width: 100%;
   margin-top: 0;
-  padding-top: 20px; /* ensures cards never slide under the header */
-  overflow-x: hidden; /* EXTRA safety: no horizontal scroll */
+  padding-top: 20px;
+  overflow-x: hidden;
 }
 
 .sidebar {
@@ -52,10 +50,9 @@ main {
   gap: 1rem;
   padding: 20px;
   min-width: 0;
-  margin-top: 700px; /* ensures content clears header fully */
+  margin-top: 700px;
 }
 
-/* Project header row */
 .projects-header-row {
   background-color: #fff;
   border-radius: 10px;
@@ -67,11 +64,8 @@ main {
   margin-top: 0;
 }
 
-/* ------------------------------------------------------- */
-/*  ADD BUTTON — restored to original sizing + behavior     */
-/* ------------------------------------------------------- */
 .add-project-btn {
-  align-self: flex-start; /* stays on the left on mobile */
+  align-self: flex-start;
   font-size: 0.95rem;
   padding: 9px 16px;
   background-color: #26bbe4;
@@ -91,21 +85,17 @@ main {
 /* Desktop alignment */
 @media (min-width: 600px) {
   .add-project-btn {
-    align-self: center; /* aligns perfectly inside the header row */
+    align-self: center;
   }
 }
-/* ------------------------------------------------------- */
 
-
-/* Card container */
 .card-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  overflow-x: hidden; /* prevents horizontal scroll caused by cards */
+  overflow-x: hidden;
 }
 
-/* Card — RESTORED to original size */
 .card {
   background-color: white;
   border-radius: 10px;
@@ -114,7 +104,6 @@ main {
   display: flex;
   flex-direction: column;
 
-  /* ORIGINAL sizing restored */
   flex: 1 1 100%;
   max-width: 600px;
 
@@ -166,10 +155,9 @@ footer {
     margin-top: 20px;
   }
 
-  /* RESTORED — do NOT enlarge cards at larger screens */
   .card {
     flex: 1 1 calc(33.33% - 1.5rem);
-    max-width: 280px; /* but NOT larger than this */
+    max-width: 280px;
   }
 }
 
