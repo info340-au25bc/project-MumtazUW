@@ -4,11 +4,10 @@ import "../css/homepage.css";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="home-page">
       {/* Navbar */}
       <header className="navbar">
         <div className="logo">Luna Dashboard</div>
-
       </header>
 
       {/* Hero Section */}

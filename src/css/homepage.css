@@ -1,12 +1,11 @@
-* {
+.home-page * {
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
-  width: -webkit-fill-available;
 }
 
-body {
+.home-page body {
   background: #f8fafc;
   color: #222222;
   overflow-x: hidden;
@@ -15,7 +14,7 @@ body {
   min-height: 100vh;
 }
 
-.navbar {
+.home-page .navbar {
   background: #ffffff;
   display: flex;
   justify-content: space-between;
@@ -25,13 +24,13 @@ body {
   flex-shrink: 0;
 }
 
-.navbar .logo {
+.home-page .navbar .logo {
   font-weight: 700;
   font-size: 1.3rem;
   color: #26bbe4;
 }
 
-.navbar nav a {
+.home-page .navbar nav a {
   margin-left: 1.2rem;
   text-decoration: none;
   color: #333333;
@@ -39,11 +38,11 @@ body {
   transition: color 0.2s;
 }
 
-.navbar nav a:hover {
+.home-page .navbar nav a:hover {
   color: #26bbe4;
 }
 
-.hero {
+.home-page .hero {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -54,36 +53,36 @@ body {
   gap: 2rem;
 }
 
-.hero-content {
+.home-page .hero-content {
   max-width: 480px;
   flex: 1 1 300px;
 }
 
-.hero-illustration {
+.home-page .hero-illustration {
   flex: 1 1 300px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.hero-illustration img {
+.home-page .hero-illustration img {
   max-width: 100%;
   height: auto;
   width: 400px;
   border-radius: 12px;
 }
 
-.hero h1 {
+.home-page .hero h1 {
   font-size: 2.5rem;
   color: #0b6780;
 }
 
-.hero p {
+.home-page .hero p {
   margin-top: 1rem;
   line-height: 1.5;
 }
 
-.cta-btn {
+.home-page .cta-btn {
   display: inline-block;
   margin-top: 1.5rem;
   background-color: #26bbe4;
@@ -96,60 +95,60 @@ body {
   width: 30%;
 }
 
-.cta-btn:hover {
+.home-page .cta-btn:hover {
   background-color: #0b6780;
 }
 
-.features {
+.home-page .features {
   text-align: center;
   padding: 3rem 2rem;
   background-color: #ffffff;
   flex-shrink: 0;
 }
 
-.features h2 {
+.home-page .features h2 {
   color: #0b6780;
   margin-bottom: 2rem;
 }
 
-.card-grid {
+.home-page .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
 }
 
-.feature-card {
+.home-page .feature-card {
   background: #f0f9ff;
   border-radius: 12px;
   padding: 1.5rem;
   transition: transform 0.3s ease, background 0.3s;
 }
 
-.feature-card:hover {
+.home-page .feature-card:hover {
   transform: translateY(-8px);
   background: #e0f4fc;
 }
 
-.demo {
+.home-page .demo {
   background: #f8fafc;
   padding: 3rem 2rem;
   text-align: center;
   flex-shrink: 0;
 }
 
-.demo h2 {
+.home-page .demo h2 {
   margin-bottom: 1.5rem;
   color: #0b6780;
 }
 
-.demo-cards {
+.home-page .demo-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5rem;
 }
 
-.demo-card {
+.home-page .demo-card {
   background: #ffffff;
   border-radius: 12px;
   width: 280px;
@@ -159,23 +158,23 @@ body {
   transition: transform 0.3s ease;
 }
 
-.demo-card:hover {
+.home-page .demo-card:hover {
   transform: scale(1.05);
 }
 
-.card-detail {
+.home-page .card-detail {
   display: none;
   margin-top: 1rem;
   font-size: 0.9rem;
   color: #333333;
 }
 
-.demo-card:hover .card-detail,
-.demo-card:focus .card-detail {
+.home-page .demo-card:hover .card-detail,
+.home-page .demo-card:focus .card-detail {
   display: block;
 }
 
-footer {
+.home-page footer {
   background: #0b6780;
   color: #ffffff;
   text-align: center;
