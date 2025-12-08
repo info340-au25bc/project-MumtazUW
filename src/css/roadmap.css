@@ -175,7 +175,6 @@
 }
 
 .phase-label-container {
-  width: 220px;
   flex-shrink: 0;
 }
 
@@ -198,6 +197,26 @@
 .concept-development { background-color: #E07B39; }
 .design-development { background-color: #C9A647; }
 .testing-iteration { background-color: #2A7F7F; }
+
+.phase-label button {
+  margin-left: 8px;
+  font-size: 14px;
+  background-color: #26bbe4;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.phase-label button:hover {
+  background-color: #1fa0d1;
+}
 
 .tasks-container {
   flex: 1;
