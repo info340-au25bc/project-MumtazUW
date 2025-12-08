@@ -298,7 +298,7 @@ const RoadmapPage = () => {
         </main>
 
         <footer className="footer">
-          <p>© 2025 Luna Health Product Dashboard | INFO 340 Project</p>
+          <p>© 2025 Luna Product Dashboard | INFO 340 Project</p>
         </footer>
       </div>
     </DndProvider>

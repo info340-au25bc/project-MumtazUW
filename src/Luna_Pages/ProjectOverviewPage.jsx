@@ -101,9 +101,7 @@ function ProjectOverviewPage() {
         </main>
       </div>
 
-      <footer>
-        © 2025 Luna Health Product Dashboard | INFO 340 Project
-      </footer>
+    <footer>© 2025 Luna Product Dashboard | INFO 340 Project</footer>
 
     </div>
   );

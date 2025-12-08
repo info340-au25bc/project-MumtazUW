@@ -225,7 +225,6 @@ function handleEditChange(event) {
                         />
                       </div>
                     </div>
-
                     <div className="modal-footer">
                       <button
                         type="button"
@@ -348,10 +347,8 @@ function handleEditChange(event) {
               </div>
             </div>
           )}
-
         </main>
       </div>
-
       <footer>
         © 2025 Luna Product Dashboard | INFO 340 Project
       </footer>

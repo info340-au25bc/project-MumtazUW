@@ -22,7 +22,6 @@ function SignupPage() {
 
     try {
       const result = await createUserWithEmailAndPassword(auth, email, password);
-
       const userRef = ref(db, `users/${result.user.uid}/profile`);
       await set(userRef, {
         name,
@@ -90,7 +89,7 @@ function SignupPage() {
         </p>
       </div>
 
-      <footer>© 2025 Luna Health Product Dashboard | INFO 340 Project</footer>
+      <footer>© 2025 Luna Product Dashboard | INFO 340 Project</footer>
     </div>
   );
 }
