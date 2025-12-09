@@ -19,7 +19,6 @@ function BacklogPage() {
   const [showModal, setShowModal] = useState(false);
   const [formKey, setFormKey] = useState(0);
 
-  // --- Filter states ---
   const [filterPriority, setFilterPriority] = useState('');
   const [filterAssignee, setFilterAssignee] = useState('');
   const [filterRecency, setFilterRecency] = useState('');
@@ -104,7 +103,6 @@ function BacklogPage() {
     firebaseSet(itemRef, null).catch((err) => console.log(err));
   }
 
-  // --- Apply filters and sorting ---
   let filteredItems = [...backlogItems];
 
   if (filterPriority) filteredItems = filteredItems.filter(item => item.priority === filterPriority);

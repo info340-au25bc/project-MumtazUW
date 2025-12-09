@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ref, onValue, update, remove } from "firebase/database";
-import { db } from "../main"; // make sure your Firebase app & DB are initialized here
+import { db } from "../main";
 import "../css/notification.css";
 
 function NotificationsPage() {
@@ -9,13 +9,11 @@ function NotificationsPage() {
   const [sortOrder, setSortOrder] = useState("Newest");
   const [filter, setFilter] = useState("All");
 
-  // ========= Load notifications from Firebase =========
   useEffect(() => {
     const notificationsRef = ref(db, "notifications");
     return onValue(notificationsRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        // Convert object to array with id
         const notifArray = Object.entries(data).map(([key, value]) => ({
           id: key,
           ...value,
@@ -27,12 +25,10 @@ function NotificationsPage() {
     });
   }, []);
 
-  // ========= Delete a single notification =========
   const deleteNotification = (id) => {
     remove(ref(db, `notifications/${id}`));
   };
 
-  // ========= Toggle all notifications read/unread =========
   const toggleAllReadStatus = () => {
     const allRead = notifications.every((n) => n.status === "read");
 
@@ -41,7 +37,6 @@ function NotificationsPage() {
     });
   };
 
-  // ========= Sorting and filtering =========
   const sortedNotifications =
     sortOrder === "Newest" ? [...notifications] : [...notifications].reverse();
 

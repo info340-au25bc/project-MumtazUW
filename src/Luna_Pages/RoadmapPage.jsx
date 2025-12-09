@@ -8,7 +8,6 @@ import "../css/roadmap.css";
 
 const ItemTypes = { TASK: "task" };
 
-// ========== Draggable Task ==========
 const DraggableTask = ({ task, taskKey, phaseKey, moveTask, openEditModal }) => {
   const [, drag] = useDrag({
     type: ItemTypes.TASK,
@@ -46,7 +45,6 @@ const DraggableTask = ({ task, taskKey, phaseKey, moveTask, openEditModal }) => 
   );
 };
 
-// ========== Main Roadmap Page ==========
 const RoadmapPage = () => {
   const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const [phases, setPhases] = useState({});
@@ -55,7 +53,6 @@ const RoadmapPage = () => {
   const [editingTaskKey, setEditingTaskKey] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  // ========= Load data from Firebase =========
   useEffect(() => {
     const phasesRef = ref(db, "roadmap/phases");
     return onValue(phasesRef, (snapshot) => {
@@ -63,7 +60,6 @@ const RoadmapPage = () => {
     });
   }, []);
 
-  // ========= Move task inside a phase =========
   const moveTask = (phaseKey, fromKey, toKey) => {
     const phase = phases[phaseKey];
     const tasksArray = phase.tasks
@@ -79,7 +75,6 @@ const RoadmapPage = () => {
     update(ref(db, `roadmap/phases/${phaseKey}`), { tasks: newTasks });
   };
 
-  // ========= Add task =========
   const addTask = useCallback((phaseKey) => {
     const newTask = {
       text: "New Task",
@@ -91,7 +86,6 @@ const RoadmapPage = () => {
     update(ref(db, `roadmap/phases/${phaseKey}/tasks/${newKey}`), newTask);
   }, [phases]);
 
-  // ========= Edit task =========
   const openEditModal = (task, phaseKey, taskKey) => {
     setEditingTask({ ...task });
     setEditingPhaseKey(phaseKey);
@@ -128,6 +122,7 @@ const RoadmapPage = () => {
               <li><NavLink to="/roadmap" className="active">Roadmap</NavLink></li>
               <li><NavLink to="/backlog">Tasks & Backlog</NavLink></li>
               <li><NavLink to="/notifications">Notifications</NavLink></li>
+              <li><NavLink to="/homepage">Home</NavLink></li>
             </ul>
           </nav>
         </aside>
