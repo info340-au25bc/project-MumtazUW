@@ -115,7 +115,7 @@ main {
   transform: translate3d(0px, -1px, 0px);
 }
 
-.card img {
+.card-main-image {
   width: 100%;
   height: 180px;
   object-fit: cover;
@@ -128,6 +128,32 @@ footer {
   background-color: #fff;
   border-top: 1px solid #ddd;
   flex-shrink: 0;
+}
+.card-icon {
+  position: absolute;
+  border: none;
+  background: transparent;
+  padding: 4px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon-inner {
+  font-size: 20px;
+  color: #26bbe4;
+}
+
+.card-icon-edit {
+  top: 8px;
+  right: 8px;
+}
+
+.card-icon-arrow {
+  bottom: 8px;
+  right: 8px;
 }
 
 /* Tablet ≥ 600px */
@@ -158,7 +184,33 @@ footer {
   .card {
     flex: 1 1 calc(33.33% - 1.5rem);
     max-width: 280px;
+    position: relative;
   }
+}
+.card-icon {
+  position: absolute;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon img {
+  width: 16px;
+  height: 16px;
+}
+
+.card-icon-edit {
+  top: 8px;
+  right : 8px;
+}
+.card-icon-arrow {
+  bottom: 8px;
+  right: 8px;
 }
 
 /* Larger desktop ≥ 900px */

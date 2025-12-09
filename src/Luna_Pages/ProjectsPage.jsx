@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Header from "./header";
 import '../css/projectsPage.css';
 //import '../css/global.css';
@@ -13,24 +13,63 @@ import { db } from "../main.jsx";
 // tester photo: image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
 
 function ProjectsCard(props){
+  let shortDescription = "";
+
+  if (props.description) {
+    if (props.description.length > 100) {
+      shortDescription = props.description.slice(0, 100) + "...";
+    } else {
+      shortDescription = props.description;
+    }
+  }
+
   return (
-    <div
-      className="card"
-      onClick={props.onClick}
-      style={{ cursor: "pointer" }}
-    >
-      <img src={props.image} alt="abstract project art" />
+    <div className="card">
+      {/* Edit button (top right) */}
+      <button
+        type="button"
+        className="card-icon card-icon-edit"
+        aria-label={"Edit " + props.title}
+        onClick={function(e) {
+          e.stopPropagation();
+          if (props.onEditClick) {
+            props.onEditClick();
+          }
+        }}
+      >
+        <i className="bi bi-pencil card-icon-inner"></i>
+      </button>
+
+      {/* Arrow button (bottom right) */}
+      <button
+        type="button"
+        className="card-icon card-icon-arrow"
+        aria-label={"Go to " + props.title + " overview"}
+        onClick={function(e) {
+          e.stopPropagation();
+          if (props.onArrowClick) {
+            props.onArrowClick();
+          }
+        }}
+      >
+        <i className="bi bi-arrow-right-circle card-icon-inner"></i>
+      </button>
+
+      <img
+        src={props.image}
+        alt="abstract project art"
+        className="card-main-image"
+      />
       <div className="card-text">
         <h3>{props.title}</h3>
-        <p>{props.description}</p>
+        <p>{shortDescription}</p>
       </div>
     </div>
   );
 }
-
-
 function ProjectsPage() {
   const [projects, setProjects] = useState([]);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const projectsRef = ref(db, "projects");
@@ -116,6 +155,9 @@ function handleEditChange(event) {
       .catch(err => {
         console.log(err);
       });
+  }
+  function goToProjectOverview(projectId) {
+    navigate(`/projects/${projectId}`);
   }
 
   return (
@@ -242,19 +284,20 @@ function handleEditChange(event) {
               </div>
             </div>
           )}
-
           {/* Cards */}
-        <section className="card-container">
-          {projects.map(project => (
-            <ProjectsCard
-              key={project.id}
-              image={project.image}
-              title={project.title}
-              description={project.description}
-              onClick={() => openEditModal(project)}
-            />
-          ))}
+          <section className="card-container">
+            {projects.map(project => (
+              <ProjectsCard
+                key={project.id}
+                image={project.image}
+                title={project.title}
+                description={project.description}
+                onEditClick={() => openEditModal(project)}
+                onArrowClick={() => goToProjectOverview(project.id)}
+              />
+            ))}
           </section>
+
           {/* Editing Modal */}
           {isEditModalOpen && editingProject && (
             <div
