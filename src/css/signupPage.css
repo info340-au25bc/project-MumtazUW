@@ -101,6 +101,18 @@ body {
   font-size: 0.9rem;
 }
 
+.switch-link {
+  color: #26bbe4;
+  cursor: pointer;
+  font-weight: 600;
+  transition: text-decoration 0.2s, color 0.2s;
+}
+
+.switch-link:hover {
+  text-decoration: underline;
+  color: #0b6780;
+}
+
 .auth-footer {
   margin-top: 1.5rem;
   color: #555555;
