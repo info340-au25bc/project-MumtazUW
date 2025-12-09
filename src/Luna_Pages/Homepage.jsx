@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "../css/homepage.css";
+import LunaDashboardImg from "../img/LunaDashboard.jpeg";
 
 const HomePage = () => {
   return (
@@ -23,7 +24,7 @@ const HomePage = () => {
           </NavLink>
         </div>
         <div className="hero-illustration">
-          <img src="/img/LunaDashboard.jpeg" alt="Dashboard Illustration" />
+          <img src={LunaDashboardImg} alt="Dashboard Illustration" />
         </div>
       </section>
 
