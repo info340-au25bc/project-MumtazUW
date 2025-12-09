@@ -1,29 +1,32 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import '../css/roadmap.css';
+import React, { useEffect, useState, useCallback } from "react";
+import { NavLink } from "react-router-dom";
+import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { ref, onValue, update, remove } from "firebase/database";
+import { db } from "../main";
+import "../css/roadmap.css";
 
-const ItemTypes = {
-  TASK: 'task'
-};
+const ItemTypes = { TASK: "task" };
 
-// Draggable Task Component using react-dnd library
-const DraggableTask = ({ task, index, phaseIndex, moveTask, openEditModal }) => {
+// ========== Draggable Task ==========
+const DraggableTask = ({ task, taskKey, phaseKey, moveTask, openEditModal }) => {
   const [, drag] = useDrag({
     type: ItemTypes.TASK,
-    item: { task, index, phaseIndex },
+    item: { taskKey, phaseKey },
   });
 
   const [, drop] = useDrop({
     accept: ItemTypes.TASK,
     hover(item) {
-      if (item.phaseIndex === phaseIndex && item.index !== index) {
-        moveTask(phaseIndex, item.index, index);
-        item.index = index;
+      if (item.phaseKey === phaseKey && item.taskKey !== taskKey) {
+        moveTask(phaseKey, item.taskKey, taskKey);
+        item.taskKey = taskKey;
       }
     },
   });
+
+  const start = Number(task.start) || 0;
+  const duration = Number(task.duration) || 1;
 
   return (
     <div className="task-row">
@@ -31,11 +34,11 @@ const DraggableTask = ({ task, index, phaseIndex, moveTask, openEditModal }) => 
         ref={(node) => drag(drop(node))}
         className={`task-bar ${task.color}`}
         style={{
-          left: `${(task.start / 12) * 100}%`,
-          width: `${(task.duration / 12) * 100}%`,
-          cursor: 'grab'
+          left: `${(start / 12) * 100}%`,
+          width: `${(duration / 12) * 100}%`,
+          cursor: "grab",
         }}
-        onClick={() => openEditModal(task, phaseIndex)}
+        onClick={() => openEditModal(task, phaseKey, taskKey)}
       >
         {task.text}
       </div>
@@ -43,99 +46,70 @@ const DraggableTask = ({ task, index, phaseIndex, moveTask, openEditModal }) => 
   );
 };
 
+// ========== Main Roadmap Page ==========
 const RoadmapPage = () => {
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-  const [phases, setPhases] = useState([
-    {
-      name: 'Idea Generation',
-      color: 'idea-generation',
-      tasks: [
-        { text: 'Conduct market research', start: 1, duration: 4, color: 'idea-generation' },
-        { text: 'Brainstorm solutions', start: 1.5, duration: 3, color: 'idea-generation' },
-        { text: 'Evaluate feasibility', start: 2.5, duration: 3, color: 'idea-generation' },
-      ]
-    },
-    {
-      name: 'Concept Development',
-      color: 'concept-development',
-      tasks: [
-        { text: 'Define target customer', start: 3, duration: 2.5, color: 'concept-development' },
-        { text: 'Create prototypes', start: 4, duration: 3, color: 'concept-development' },
-        { text: 'Gather feedback', start: 5, duration: 4, color: 'concept-development' },
-      ]
-    },
-    {
-      name: 'Design & Development',
-      color: 'design-development',
-      tasks: [
-        { text: 'Refine prototypes', start: 6, duration: 3, color: 'design-development' },
-        { text: 'Collaborate with teams', start: 7, duration: 3.5, color: 'design-development' },
-        { text: 'Develop MVP', start: 8, duration: 4, color: 'design-development' },
-      ]
-    },
-    {
-      name: 'Testing & Iteration',
-      color: 'testing-iteration',
-      tasks: [
-        { text: 'Usability & quality testing', start: 9, duration: 3.5, color: 'testing-iteration' },
-        { text: 'Iterate product', start: 10.5, duration: 2.5, color: 'testing-iteration' },
-        { text: 'Finalize features', start: 11, duration: 2, color: 'testing-iteration' },
-      ]
-    }
-  ]);
-
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const [phases, setPhases] = useState({});
   const [editingTask, setEditingTask] = useState(null);
-  const [editingPhaseIndex, setEditingPhaseIndex] = useState(null);
+  const [editingPhaseKey, setEditingPhaseKey] = useState(null);
+  const [editingTaskKey, setEditingTaskKey] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const openEditModal = (task, phaseIndex) => {
-    setEditingTask(task);
-    setEditingPhaseIndex(phaseIndex);
+  // ========= Load data from Firebase =========
+  useEffect(() => {
+    const phasesRef = ref(db, "roadmap/phases");
+    return onValue(phasesRef, (snapshot) => {
+      setPhases(snapshot.val() || {});
+    });
+  }, []);
+
+  // ========= Move task inside a phase =========
+  const moveTask = (phaseKey, fromKey, toKey) => {
+    const phase = phases[phaseKey];
+    const tasksArray = phase.tasks
+      ? Object.entries(phase.tasks).sort(([, a], [, b]) => Number(a.start) - Number(b.start))
+      : [];
+
+    const fromIndex = tasksArray.findIndex(([key]) => key === fromKey);
+    const toIndex = tasksArray.findIndex(([key]) => key === toKey);
+    const [moved] = tasksArray.splice(fromIndex, 1);
+    tasksArray.splice(toIndex, 0, moved);
+
+    const newTasks = Object.fromEntries(tasksArray);
+    update(ref(db, `roadmap/phases/${phaseKey}`), { tasks: newTasks });
+  };
+
+  // ========= Add task =========
+  const addTask = useCallback((phaseKey) => {
+    const newTask = {
+      text: "New Task",
+      start: 1,
+      duration: 1,
+      color: phases[phaseKey].color,
+    };
+    const newKey = `task${Date.now()}`;
+    update(ref(db, `roadmap/phases/${phaseKey}/tasks/${newKey}`), newTask);
+  }, [phases]);
+
+  // ========= Edit task =========
+  const openEditModal = (task, phaseKey, taskKey) => {
+    setEditingTask({ ...task });
+    setEditingPhaseKey(phaseKey);
+    setEditingTaskKey(taskKey);
     setShowModal(true);
   };
 
-  const closeModal = () => {
-    setEditingTask(null);
-    setEditingPhaseIndex(null);
+  const saveTaskChanges = () => {
+    update(
+      ref(db, `roadmap/phases/${editingPhaseKey}/tasks/${editingTaskKey}`),
+      editingTask
+    );
     setShowModal(false);
   };
 
-  const saveTaskChanges = (updatedTask) => {
-    setPhases(prev =>
-      prev.map((phase, pIdx) => {
-        if (pIdx !== editingPhaseIndex) return phase;
-        return {
-          ...phase,
-          tasks: phase.tasks.map(task =>
-            task === editingTask ? { ...updatedTask, color: phase.color } : task
-          )
-        };
-      })
-    );
-    closeModal();
-  };
-
-  const moveTask = (phaseIndex, fromIndex, toIndex) => {
-    setPhases(prev => {
-      const phase = { ...prev[phaseIndex] };
-      const updatedTasks = [...phase.tasks];
-      const [moved] = updatedTasks.splice(fromIndex, 1);
-      updatedTasks.splice(toIndex, 0, moved);
-      phase.tasks = updatedTasks;
-      const newPhases = [...prev];
-      newPhases[phaseIndex] = phase;
-      return newPhases;
-    });
-  };
-
-  const addTask = (phaseIndex) => {
-    const newTask = { text: 'New Task', start: 1, duration: 1, color: phases[phaseIndex].color };
-    setPhases(prev => {
-      const updated = [...prev];
-      updated[phaseIndex].tasks.push(newTask);
-      return updated;
-    });
+  const deleteTask = () => {
+    remove(ref(db, `roadmap/phases/${editingPhaseKey}/tasks/${editingTaskKey}`));
+    setShowModal(false);
   };
 
   return (
@@ -152,7 +126,7 @@ const RoadmapPage = () => {
               <li><NavLink to="/">Project Overview</NavLink></li>
               <li><NavLink to="/projects">Projects</NavLink></li>
               <li><NavLink to="/roadmap" className="active">Roadmap</NavLink></li>
-              <li><NavLink to="/backlog">Tasks and Backlog</NavLink></li>
+              <li><NavLink to="/backlog">Tasks & Backlog</NavLink></li>
               <li><NavLink to="/notifications">Notifications</NavLink></li>
             </ul>
           </nav>
@@ -161,8 +135,7 @@ const RoadmapPage = () => {
         <main className="roadmap-main">
           <div className="roadmap-content">
             <div className="roadmap-header">
-              <div className="phase-label-spacer">
-              </div>
+              <div className="phase-label-spacer" />
               <div className="months-container">
                 {months.map((month, idx) => (
                   <div key={idx} className="month-cell">{month}</div>
@@ -170,130 +143,109 @@ const RoadmapPage = () => {
               </div>
             </div>
 
-            {phases.map((phase, phaseIndex) => (
-              <div key={phaseIndex} className="phase-row">
-                <div className="phase-label-container">
-                  <div className={`phase-label ${phase.color}`}>
-                    {phase.name}
-                    <button
-                      style={{ marginLeft: '8px', fontSize: '12px' }}
-                      onClick={() => addTask(phaseIndex)}
-                    >
-                      +
-                    </button>
+            {Object.entries(phases).map(([phaseKey, phase]) => {
+              const tasksArray = phase.tasks
+                ? Object.entries(phase.tasks).sort(([, a], [, b]) => Number(a.start) - Number(b.start))
+                : [];
+
+              return (
+                <div key={phaseKey} className="phase-row">
+                  <div className="phase-label-container">
+                    <div className={`phase-label ${phase.color}`}>
+                      {phase.name}
+                      <button style={{ marginLeft: "8px", fontSize: "12px" }} onClick={() => addTask(phaseKey)}>+</button>
+                    </div>
+                  </div>
+
+                  <div className="tasks-container">
+                    {tasksArray.map(([taskKey, task]) => (
+                      <DraggableTask
+                        key={taskKey}
+                        task={task}
+                        taskKey={taskKey}
+                        phaseKey={phaseKey}
+                        moveTask={moveTask}
+                        openEditModal={openEditModal}
+                      />
+                    ))}
                   </div>
                 </div>
-                <div className="tasks-container">
-                  {phase.tasks.map((task, taskIndex) => (
-                    <DraggableTask
-                      key={taskIndex}
-                      task={task}
-                      index={taskIndex}
-                      phaseIndex={phaseIndex}
-                      moveTask={moveTask}
-                      openEditModal={openEditModal}
-                    />
-                  ))}
+              );
+            })}
+
+            {/* Edit Modal */}
+            {showModal && editingTask && (
+              <div className="modal fade show" style={{ display: "block" }}>
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5>Edit Task</h5>
+                      <button onClick={() => setShowModal(false)} style={{ marginLeft: "auto" }}>&times;</button>
+                    </div>
+                    <div className="modal-body">
+                      <div className="form-group mb-2">
+                        <label>Task Name</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={editingTask.text}
+                          onChange={(e) => setEditingTask({ ...editingTask, text: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="form-group mb-2">
+                        <label>Owner</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={editingTask.owner || ""}
+                          onChange={(e) => setEditingTask({ ...editingTask, owner: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="form-group mb-2">
+                        <label>Description</label>
+                        <textarea
+                          className="form-control"
+                          value={editingTask.description || ""}
+                          onChange={(e) => setEditingTask({ ...editingTask, description: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="form-group mb-2">
+                        <label>Timeline</label>
+                        <div style={{ display: "flex", gap: "10px" }}>
+                          <input
+                            type="date"
+                            className="form-control"
+                            value={editingTask.startDate || ""}
+                            onChange={(e) => setEditingTask({ ...editingTask, startDate: e.target.value })}
+                          />
+                          <span style={{ alignSelf: "center" }}>to</span>
+                          <input
+                            type="date"
+                            className="form-control"
+                            value={editingTask.endDate || ""}
+                            onChange={(e) => setEditingTask({ ...editingTask, endDate: e.target.value })}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="modal-footer">
+                      <button
+                        onClick={deleteTask}
+                        style={{ backgroundColor: "red", color: "white" }}
+                      >
+                        Delete
+                      </button>
+                      <button onClick={() => setShowModal(false)}>Cancel</button>
+                      <button onClick={saveTaskChanges}>Save</button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            ))}
-
-{showModal && editingTask && (
-  <div className="modal fade show" style={{ display: 'block' }}>
-    <div className="modal-dialog">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5>Edit Task</h5>
-          <button onClick={closeModal} style={{ marginLeft: 'auto' }}>&times;</button>
-        </div>
-        <div className="modal-body">
-          {/* Task Name */}
-          <div className="form-group mb-2">
-            <label htmlFor="edit-task-name">Task Name</label>
-            <input
-              id="edit-task-name"
-              type="text"
-              value={editingTask.text}
-              onChange={(e) =>
-                setEditingTask({ ...editingTask, text: e.target.value })
-              }
-              className="form-control"
-            />
-          </div>
-
-          {/* Owner */}
-          <div className="form-group mb-2">
-            <label htmlFor="edit-task-owner">Owner</label>
-            <input
-              id="edit-task-owner"
-              type="text"
-              value={editingTask.owner || ''}
-              onChange={(e) =>
-                setEditingTask({ ...editingTask, owner: e.target.value })
-              }
-              className="form-control"
-            />
-          </div>
-
-          {/* Description */}
-          <div className="form-group mb-2">
-            <label htmlFor="edit-task-desc">Description</label>
-            <textarea
-              id="edit-task-desc"
-              value={editingTask.description || ''}
-              onChange={(e) =>
-                setEditingTask({ ...editingTask, description: e.target.value })
-              }
-              className="form-control"
-            />
-          </div>
-
-          {/* Timeline */}
-          <div className="form-group mb-2">
-            <label>Timeline</label>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <input
-                type="date"
-                value={editingTask.startDate || ''}
-                onChange={(e) =>
-                  setEditingTask({ ...editingTask, startDate: e.target.value })
-                }
-                className="form-control"
-              />
-              <span style={{ alignSelf: 'center' }}>to</span>
-              <input
-                type="date"
-                value={editingTask.endDate || ''}
-                onChange={(e) =>
-                  setEditingTask({ ...editingTask, endDate: e.target.value })
-                }
-                className="form-control"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="modal-footer">
-          <button
-            onClick={() => {
-              setPhases(prev => {
-                const newPhases = [...prev];
-                newPhases[editingPhaseIndex].tasks = newPhases[editingPhaseIndex].tasks.filter(t => t !== editingTask);
-                return newPhases;
-              });
-              closeModal();
-            }}
-            style={{ backgroundColor: 'red', color: 'white' }}
-          >
-            Delete
-          </button>
-          <button onClick={closeModal}>Cancel</button>
-          <button onClick={() => saveTaskChanges(editingTask)}>Save</button>
-        </div>
-      </div>
-    </div>
-  </div>
-)}
-
+            )}
           </div>
         </main>
 
