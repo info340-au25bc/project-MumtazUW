@@ -117,12 +117,11 @@ const RoadmapPage = () => {
           <h2>Navigation</h2>
           <nav>
             <ul>
-              <li><NavLink to="/">Project Overview</NavLink></li>
+              <li><NavLink to="/overview">Project Overview</NavLink></li>
               <li><NavLink to="/projects">Projects</NavLink></li>
               <li><NavLink to="/roadmap" className="active">Roadmap</NavLink></li>
-              <li><NavLink to="/backlog">Tasks & Backlog</NavLink></li>
+              <li><NavLink to="/backlog">Tasks and Backlog</NavLink></li>
               <li><NavLink to="/notifications">Notifications</NavLink></li>
-              <li><NavLink to="/homepage">Home</NavLink></li>
             </ul>
           </nav>
         </aside>

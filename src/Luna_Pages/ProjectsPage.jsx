@@ -172,7 +172,7 @@ function handleEditChange(event) {
           <nav>
             <ul>
               <li>
-                <NavLink to="/">Project Overview</NavLink>
+                <NavLink to="/overview">Project Overview</NavLink>
               </li>
               <li>
                 <NavLink to="/projects" className="active">Projects</NavLink>

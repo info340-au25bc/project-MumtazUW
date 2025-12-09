@@ -126,7 +126,7 @@ function BacklogPage() {
           <h2>Navigation</h2>
           <nav>
             <ul>
-              <li><NavLink to="/">Project Overview</NavLink></li>
+              <li><NavLink to="/overview">Project Overview</NavLink></li>
               <li><NavLink to="/projects">Projects</NavLink></li>
               <li><NavLink to="/roadmap">Roadmap</NavLink></li>
               <li><NavLink to="/backlog" className="active">Tasks and Backlog</NavLink></li>
