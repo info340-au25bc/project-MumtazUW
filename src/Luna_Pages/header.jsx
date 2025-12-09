@@ -1,14 +1,23 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import '../css/kanbanBacklog.css';
-function Header() {
+import "../css/kanbanBacklog.css";
+
+function Header(props) {
+  const title = props && props.title ? props.title : "Project Backlog";
+
   return (
     <header className="backlog-header">
       <div className="header-left">
-        <h1>Project Backlog</h1>
+        <h1>{title}</h1>
       </div>
+
+      <nav className="header-nav" aria-label="Page navigation">
+        <NavLink to="/projects">Projects</NavLink>
+        <NavLink to="/notifications">Notifs</NavLink>
+        <NavLink to="/backlog">BackLog</NavLink>
+      </nav>
+
       <div className="profile">
         <NavLink to="/profile">
           <img

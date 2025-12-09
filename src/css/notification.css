@@ -220,4 +220,7 @@ footer.footer {
   .notifications-container {
     padding: 1.5rem;
   }
+  .notifications-page .header-nav {
+    display: none;
+  }
 }

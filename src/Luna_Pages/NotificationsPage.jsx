@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ref, onValue, update, remove } from "firebase/database";
 import { db } from "../main";
+import Header from "./header";
 import "../css/notification.css";
 
 function NotificationsPage() {
@@ -47,9 +48,7 @@ function NotificationsPage() {
 
   return (
     <div className="notifications-page">
-      <header className="header">
-        <h1>Notifications</h1>
-      </header>
+      <Header title="Notifications" />
 
       <aside className="sidebar" aria-label="Primary navigation">
         <h2>Navigation</h2>

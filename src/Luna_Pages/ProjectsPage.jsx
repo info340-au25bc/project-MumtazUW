@@ -3,14 +3,10 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Header from "./header";
 import '../css/projectsPage.css';
-//import '../css/global.css';
-
+// Modal from Bootstrap: https://getbootstrap.com/docs/4.0/components/modal/
+// tester photo: image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
 import { getDatabase, ref, push, set, update, onValue } from "firebase/database";
 import { db } from "../main.jsx";
-
-// Modal from Bootstrap: https://getbootstrap.com/docs/4.0/components/modal/
-
-// tester photo: image: "https://tse2.mm.bing.net/th/id/OIP.icLF1gVCYreYaVVKihzDKAHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"
 
 function ProjectsCard(props){
   let shortDescription = "";
@@ -25,7 +21,6 @@ function ProjectsCard(props){
 
   return (
     <div className="card">
-      {/* Edit button (top right) */}
       <button
         type="button"
         className="card-icon card-icon-edit"
@@ -40,7 +35,6 @@ function ProjectsCard(props){
         <i className="bi bi-pencil card-icon-inner"></i>
       </button>
 
-      {/* Arrow button (bottom right) */}
       <button
         type="button"
         className="card-icon card-icon-arrow"
@@ -67,6 +61,7 @@ function ProjectsCard(props){
     </div>
   );
 }
+
 function ProjectsPage() {
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
@@ -90,7 +85,6 @@ function ProjectsPage() {
   const [editingProject, setEditingProject] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-
   function handleInput(event) {
     const { name, value } = event.target;
     setNewProject(prevProj => ({ ...prevProj, [name]: value }));
@@ -111,6 +105,7 @@ function ProjectsPage() {
     setNewProject({ title: "", description: "", image: "" });
     setIsModalOpen(false);
   }
+
   function openEditModal(project) {
     setEditingProject(project);
     setIsEditModalOpen(true);
@@ -120,13 +115,14 @@ function ProjectsPage() {
     setEditingProject(null);
     setIsEditModalOpen(false);
   }
-function handleEditChange(event) {
-  const { name, value } = event.target;
-  setEditingProject(prev => ({
-    ...prev,
-    [name]: value
-  }));
-}
+
+  function handleEditChange(event) {
+    const { name, value } = event.target;
+    setEditingProject(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  }
 
   function handleEditSubmit(event) {
     event.preventDefault();
@@ -156,17 +152,16 @@ function handleEditChange(event) {
         console.log(err);
       });
   }
+
   function goToProjectOverview(projectId) {
     navigate(`/projects/${projectId}`);
   }
 
   return (
     <div className="projects-page">
-      {/* Header */}
-      <Header />
+      <Header title="Projects" />
 
       <div className="container">
-        {/* Sidebar */}
         <aside className="sidebar">
           <h2>Navigation</h2>
           <nav>
@@ -190,17 +185,17 @@ function handleEditChange(event) {
           </nav>
         </aside>
 
-        {/* Main Section */}
         <main>
           <section className="projects-header-row">
             <h2>Your Projects</h2>
-            <button className="add-project-btn" onClick={() => setIsModalOpen(true)}
+            <button
+              className="add-project-btn"
+              onClick={() => setIsModalOpen(true)}
             >
                Add Project
             </button>
           </section>
 
-          {/* Modal */}
           {isModalOpen && (
             <div
               className="modal fade show project-modal"
@@ -284,7 +279,7 @@ function handleEditChange(event) {
               </div>
             </div>
           )}
-          {/* Cards */}
+
           <section className="card-container">
             {projects.map(project => (
               <ProjectsCard
@@ -298,7 +293,6 @@ function handleEditChange(event) {
             ))}
           </section>
 
-          {/* Editing Modal */}
           {isEditModalOpen && editingProject && (
             <div
               className="modal fade show project-modal"

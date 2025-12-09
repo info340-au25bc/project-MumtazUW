@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import '../css/projOverview.css';
+import Header from "./header";
 import { getDatabase, ref, onValue, set as firebaseSet, push as firebasePush, remove } from 'firebase/database';
 
 function ProjectOverviewPage() {
@@ -48,7 +49,6 @@ function ProjectOverviewPage() {
         setLinks([]);
       }
     });
-
     return function () {
       unsubscribe();
     };
@@ -107,14 +107,7 @@ function ProjectOverviewPage() {
   if (projectId && loadingProject) {
     return (
       <div className="project-overview-page">
-        <header>
-          <div className="header-left">
-            <h1>{headerTitle}</h1>
-          </div>
-          <div className="profile">
-            <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" alt="Profile" />
-          </div>
-        </header>
+        <Header title={headerTitle} />
         <div className="container">
           <main>
             <p>Loading project...</p>
@@ -123,17 +116,9 @@ function ProjectOverviewPage() {
       </div>
     );
   }
-
   return (
     <div className="project-overview-page">
-      <header>
-        <div className="header-left">
-          <h1>{headerTitle}</h1>
-        </div>
-        <div className="profile">
-          <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" alt="Profile" />
-        </div>
-      </header>
+      <Header title={headerTitle} />
       <div className="container">
         <div className="sidebar">
           <h2>Navigation</h2>
@@ -205,7 +190,6 @@ function ProjectOverviewPage() {
                 }}
                 className="link-input"
               />
-
               <input
                 type="text"
                 placeholder="URL"

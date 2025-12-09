@@ -103,10 +103,8 @@ main {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-
   flex: 1 1 100%;
   max-width: 600px;
-
   margin: 0.75rem;
 }
 
@@ -129,6 +127,7 @@ footer {
   border-top: 1px solid #ddd;
   flex-shrink: 0;
 }
+
 .card-icon {
   position: absolute;
   border: none;
@@ -167,7 +166,6 @@ footer {
 
 /* Tablet / small desktop ≥ 768px */
 @media (min-width: 768px) {
-
   .sidebar {
     display: block;
     position: fixed;
@@ -186,7 +184,12 @@ footer {
     max-width: 280px;
     position: relative;
   }
+
+  .projects-page .header-nav {
+    display: none;
+  }
 }
+
 .card-icon {
   position: absolute;
   border: none;
@@ -208,6 +211,7 @@ footer {
   top: 8px;
   right : 8px;
 }
+
 .card-icon-arrow {
   bottom: 8px;
   right: 8px;
