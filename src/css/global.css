@@ -11,7 +11,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-top: 200px;
+  padding-top: 20px;
   overflow-y: scroll;
 }
 
@@ -27,7 +27,7 @@ header,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px; 
+  padding: 0 20px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   z-index: 1000;
 }
@@ -443,7 +443,7 @@ main {
   box-shadow: 0 3px 6px rgba(0,0,0,0.1);
   padding-right: 2rem;
   border-radius: 10px;
-  
+
 }
 
 .BacklogPage .kanban-columns {
@@ -502,7 +502,7 @@ main {
 
 .BacklogPage .card:hover {
   background-color: #e0e0e0;
-  
+
 }
 
 /* Card actions */
